@@ -26,7 +26,7 @@ namespace Dalamud.RichPresence
         private const string DISCORD_CLIENT_ID = "478143453536976896";
         private DiscordPresenceManager _discordPresenceManager;
 
-        private DateTime startTime = DateTime.Now;
+        private DateTime startTime = DateTime.UtcNow;
 
         private bool _isMainConfigWindowDrawing = false;
 
@@ -133,7 +133,10 @@ namespace Dalamud.RichPresence
                 };
 
                 if (Config.ShowStartTime)
+                {
                     rp.Timestamps = new Timestamps(startTime);
+                }
+                    
 
                 _discordPresenceManager.SetPresence(rp);
             }
@@ -147,7 +150,7 @@ namespace Dalamud.RichPresence
         {
             ImGui.SetNextWindowSize(new Vector2(750, 520));
 
-            if (ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
+            if (_isMainConfigWindowDrawing && ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
                 ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar))
             {
                 ImGui.Text("This window allows you to configure Discord Rich Presence.");
