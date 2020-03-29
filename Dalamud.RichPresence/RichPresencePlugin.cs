@@ -72,7 +72,7 @@ namespace Dalamud.RichPresence
         private void TerritoryChanged(object sender, ushort e)
         {
             if (Config.ResetTimeWhenChangingZones)
-                this.startTime = DateTime.Now;
+                this.startTime = DateTime.UtcNow;
         }
 
         private void Framework_OnUpdateEvent(Framework framework)
