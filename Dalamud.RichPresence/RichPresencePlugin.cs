@@ -63,15 +63,10 @@ namespace Dalamud.RichPresence
             _pi.ClientState.TerritoryChanged += TerritoryChanged;
 
             _pi.CommandManager.AddHandler("/prp",
-                new CommandInfo(OnRpConfigCommand)
+                new CommandInfo((string cmd, string args) => _isMainConfigWindowDrawing = true)
                 {
                     HelpMessage = "Open the Discord Rich Presence configuration."
                 });
-        }
-
-        private void OnRpConfigCommand(string cmd, string args)
-        {
-            _isMainConfigWindowDrawing = true;
         }
 
         private void TerritoryChanged(object sender, ushort e)
@@ -152,37 +147,38 @@ namespace Dalamud.RichPresence
         {
             ImGui.SetNextWindowSize(new Vector2(750, 520));
 
-            ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
-                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar);
-
-            ImGui.Text("This window allows you to configure Discord Rich Presence.");
-            ImGui.Text("Please make sure Discord is not running as admin and you have game activity enabled.");
-            ImGui.Separator();
-
-            ImGui.BeginChild("scrolling", new Vector2(0, 400), true, ImGuiWindowFlags.HorizontalScrollbar);
-
-            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(1, 3));
-
-            ImGui.Checkbox("Show name", ref Config.ShowName);
-            ImGui.Checkbox("Show world", ref Config.ShowWorld);
-            ImGui.Separator();
-            ImGui.Checkbox("Show start time", ref Config.ShowStartTime);
-            ImGui.Checkbox("Reset start time when changing zones", ref Config.ResetTimeWhenChangingZones);
-
-            ImGui.PopStyleVar();
-
-            ImGui.EndChild();
-
-            ImGui.Separator();
-
-            if (ImGui.Button("Save and Close"))
+            if (ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
+                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar))
             {
-                _isMainConfigWindowDrawing = false;
-                _pi.SavePluginConfig(Config);
-                _pi.Log("RP saved.");
-            }
+                ImGui.Text("This window allows you to configure Discord Rich Presence.");
+                ImGui.Text("Please make sure Discord is not running as admin and you have game activity enabled.");
+                ImGui.Separator();
 
-            ImGui.End();
+                ImGui.BeginChild("scrolling", new Vector2(0, 400), true, ImGuiWindowFlags.HorizontalScrollbar);
+
+                ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(1, 3));
+
+                ImGui.Checkbox("Show name", ref Config.ShowName);
+                ImGui.Checkbox("Show world", ref Config.ShowWorld);
+                ImGui.Separator();
+                ImGui.Checkbox("Show start time", ref Config.ShowStartTime);
+                ImGui.Checkbox("Reset start time when changing zones", ref Config.ResetTimeWhenChangingZones);
+
+                ImGui.PopStyleVar();
+
+                ImGui.EndChild();
+
+                ImGui.Separator();
+
+                if (ImGui.Button("Save and Close"))
+                {
+                    _isMainConfigWindowDrawing = false;
+                    _pi.SavePluginConfig(Config);
+                    _pi.Log("RP saved.");
+                }
+
+                ImGui.End();
+            }
         }
 
         public string Name => "Discord Rich Presence";
