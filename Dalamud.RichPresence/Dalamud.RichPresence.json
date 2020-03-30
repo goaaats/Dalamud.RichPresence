@@ -3,6 +3,6 @@
   "Name": "Discord Rich Presence",
   "Description": "This plugin allows you to set up chat triggers.",
   "InternalName": "Dalamud.RichPresence",
-  "AssemblyVersion": "1.0.0.0",
+  "AssemblyVersion": "1.1.0.0",
   "ApplicableVersion": "any"
 }

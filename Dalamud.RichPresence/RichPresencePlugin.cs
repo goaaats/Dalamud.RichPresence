@@ -49,9 +49,6 @@ namespace Dalamud.RichPresence
 
             Config = pluginInterface.GetPluginConfig() as RichPresenceConfig ?? new RichPresenceConfig();
 
-            _territoryTypes = _pi.Data.GetExcelSheet<TerritoryType>().GetRows().ToArray();
-            _placeNames = _pi.Data.GetExcelSheet<PlaceName>().GetRows().ToArray();
-
             _pi.UiBuilder.OnBuildUi += UiBuilder_OnBuildUi;
             _pi.UiBuilder.OnOpenConfigUi += (sender, args) => _isMainConfigWindowDrawing = true;
 
@@ -79,6 +76,15 @@ namespace Dalamud.RichPresence
         {
             try
             {
+                if (!_pi.Data.IsDataReady)
+                    return;
+
+                if (_territoryTypes == null || _placeNames == null)
+                {
+                    _territoryTypes = _pi.Data.GetExcelSheet<TerritoryType>().GetRows().ToArray();
+                    _placeNames = _pi.Data.GetExcelSheet<PlaceName>().GetRows().ToArray();
+                }
+
                 var localPlayer = _pi.ClientState.LocalPlayer;
                 var territoryTypeId = _pi.ClientState.TerritoryType;
 
