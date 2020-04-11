@@ -148,7 +148,7 @@ namespace Dalamud.RichPresence
             }
             catch (Exception ex)
             {
-                _pi.LogError(ex, "Could not run RichPresence OnUpdate.");
+                PluginLog.LogError(ex, "Could not run RichPresence OnUpdate.");
             }
         }
 
@@ -183,7 +183,7 @@ namespace Dalamud.RichPresence
                 {
                     _isMainConfigWindowDrawing = false;
                     _pi.SavePluginConfig(Config);
-                    _pi.Log("RP saved.");
+                    PluginLog.Log("RP saved.");
                 }
 
                 ImGui.End();
