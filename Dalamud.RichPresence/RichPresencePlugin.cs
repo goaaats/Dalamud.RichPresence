@@ -20,8 +20,7 @@ namespace Dalamud.RichPresence
 
         private RichPresenceConfig Config;
 
-        private TerritoryType[] _territoryTypes;
-        private PlaceName[] _placeNames;
+        private List<TerritoryType> _territoryTypes;
 
         private const string DISCORD_CLIENT_ID = "478143453536976896";
         private DiscordPresenceManager _discordPresenceManager;
@@ -79,10 +78,9 @@ namespace Dalamud.RichPresence
                 if (!_pi.Data.IsDataReady)
                     return;
 
-                if (_territoryTypes == null || _placeNames == null)
+                if (_territoryTypes == null)
                 {
-                    _territoryTypes = _pi.Data.GetExcelSheet<TerritoryType>().GetRows().ToArray();
-                    _placeNames = _pi.Data.GetExcelSheet<PlaceName>().GetRows().ToArray();
+                    _territoryTypes = _pi.Data.GetExcelSheet<TerritoryType>().ToList();
                 }
 
                 var localPlayer = _pi.ClientState.LocalPlayer;
@@ -99,8 +97,8 @@ namespace Dalamud.RichPresence
                 if (territoryTypeId != 0)
                 {
                     var territoryType = _territoryTypes.First(x => x.RowId == territoryTypeId);
-                    placeName = _placeNames.First(x => x.RowId == territoryType.PlaceName).Name;
-                    placeNameZone = _placeNames.First(x => x.RowId == territoryType.PlaceNameRegion).Name;
+                    placeName = territoryType.PlaceName.HasValue ? territoryType.PlaceName.Value.Name : "Unknown";
+                    placeNameZone = territoryType.PlaceNameRegion.HasValue ? territoryType.PlaceNameRegion.Value.Name : "Unknown";
                     loadingImageKey = territoryType.LoadingImage;
                 }
 
