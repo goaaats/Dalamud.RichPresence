@@ -29,6 +29,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=C:\goatsoft\companysecrets\dalamud\</PathMap>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dalamud">

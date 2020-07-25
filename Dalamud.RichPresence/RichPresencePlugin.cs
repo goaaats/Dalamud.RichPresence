@@ -97,8 +97,8 @@ namespace Dalamud.RichPresence
                 if (territoryTypeId != 0)
                 {
                     var territoryType = _territoryTypes.First(x => x.RowId == territoryTypeId);
-                    placeName = territoryType.PlaceName.HasValue ? territoryType.PlaceName.Value.Name : "Unknown";
-                    placeNameZone = territoryType.PlaceNameRegion.HasValue ? territoryType.PlaceNameRegion.Value.Name : "Unknown";
+                    placeName = territoryType.PlaceName.Value?.Name ?? "Unknown";
+                    placeNameZone = territoryType.PlaceNameRegion.Value?.Name ?? "Unknown";
                     loadingImageKey = territoryType.LoadingImage;
                 }
 
