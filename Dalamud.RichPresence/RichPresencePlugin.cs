@@ -152,9 +152,10 @@ namespace Dalamud.RichPresence
 
         private void UiBuilder_OnBuildUi()
         {
+            if (!_isMainConfigWindowDrawing) return;
             ImGui.SetNextWindowSize(new Vector2(750, 520));
-
-            if (_isMainConfigWindowDrawing && ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
+            
+            if (ImGui.Begin("RichPresence Config", ref _isMainConfigWindowDrawing,
                 ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar))
             {
                 ImGui.Text("This window allows you to configure Discord Rich Presence.");
