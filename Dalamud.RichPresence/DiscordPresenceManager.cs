@@ -8,13 +8,23 @@ using DiscordRPC.Logging;
 
 namespace Dalamud.RichPresence
 {
-    class DiscordPresenceManager
+    class DiscordPresenceManager : IDisposable
     {
-        public DiscordRpcClient _rpcClient;
+        private readonly DiscordRPC.RichPresence _initialPresence;
+        private readonly string _clientId;
+        private DiscordRpcClient _rpcClient;
 
         public DiscordPresenceManager(DiscordRPC.RichPresence initialPresence, string clientId)
         {
-            _rpcClient = new DiscordRpcClient(clientId);
+            _initialPresence = initialPresence;
+            _clientId = clientId;
+
+            CreateClient();
+        }
+
+        private void CreateClient()
+        {
+            _rpcClient = new DiscordRpcClient(_clientId);
 
             //Set the logger
             _rpcClient.Logger = new ConsoleLogger { Level = LogLevel.Warning };
@@ -25,7 +35,7 @@ namespace Dalamud.RichPresence
             //Connect to the RPC
             _rpcClient.Initialize();
 
-            _rpcClient.SetPresence(initialPresence);
+            _rpcClient.SetPresence(_initialPresence);
         }
 
         public void Update()
@@ -34,18 +44,21 @@ namespace Dalamud.RichPresence
             _rpcClient.Invoke();
         }
 
-        public void Deinitialize()
-        {
-            _rpcClient.Dispose();
-        }
-
         public void SetPresence(DiscordRPC.RichPresence presence)
         {
+            if (_rpcClient.IsDisposed)
+                CreateClient();
+
             if (presence.State != _rpcClient.CurrentPresence.State ||
                 presence.Details != _rpcClient.CurrentPresence.Details ||
                 presence.Assets.SmallImageText != _rpcClient.CurrentPresence.Assets.SmallImageText ||
                 presence.Assets.LargeImageText != _rpcClient.CurrentPresence.Assets.LargeImageText)
                 _rpcClient.SetPresence(presence);
+        }
+
+        public void Dispose()
+        {
+            _rpcClient?.Dispose();
         }
     }
 }
