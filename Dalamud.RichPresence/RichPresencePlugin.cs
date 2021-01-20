@@ -111,7 +111,7 @@ namespace Dalamud.RichPresence
                     fcName = $" <{fcName}>";
                 }
 
-                var worldName = localPlayer.CurrentWorld.GameData.Name;
+                var worldName = localPlayer.CurrentWorld.GameData.Name.ToString();
 
                 if (localPlayer.CurrentWorld.Id != localPlayer.HomeWorld.Id)
                     worldName = $"{worldName} (🏠{localPlayer.HomeWorld.GameData.Name})";
@@ -193,6 +193,8 @@ namespace Dalamud.RichPresence
 
         public void Dispose()
         {
+            _pi.Framework.OnUpdateEvent -= Framework_OnUpdateEvent;
+            _pi.ClientState.TerritoryChanged -= TerritoryChanged;
             _discordPresenceManager?.Dispose();
 
             _pi.CommandManager.RemoveHandler("/prp");
