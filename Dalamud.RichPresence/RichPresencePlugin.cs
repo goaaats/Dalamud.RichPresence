@@ -193,6 +193,8 @@ namespace Dalamud.RichPresence
 
         public void Dispose()
         {
+            _pi.Framework.OnUpdateEvent -= Framework_OnUpdateEvent;
+            _pi.ClientState.TerritoryChanged -= TerritoryChanged;
             _discordPresenceManager?.Dispose();
 
             _pi.CommandManager.RemoveHandler("/prp");
