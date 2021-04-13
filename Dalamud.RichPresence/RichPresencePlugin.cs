@@ -123,6 +123,7 @@ namespace Dalamud.RichPresence
                 if (!Config.ShowWorld)
                     worldName = Config.ShowName ? placeName : placeNameZone;
 
+
                 var rp = new DiscordRPC.RichPresence
                 {
                     Details = playerName,
