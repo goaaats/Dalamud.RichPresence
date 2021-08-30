@@ -4,10 +4,16 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Dalamud.Data;
+using Dalamud.Game;
+using Dalamud.Game.ClientState;
 using Dalamud.Game.Command;
 using Dalamud.Game.Internal;
+using Dalamud.IoC;
+using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.RichPresence.Config;
+using Dalamud.Utility;
 using DiscordRPC;
 using ImGuiNET;
 using Lumina.Excel.GeneratedSheets;
@@ -16,8 +22,6 @@ namespace Dalamud.RichPresence
 {
     public class RichPresencePlugin : IDalamudPlugin
     {
-        private DalamudPluginInterface _pi;
-
         private RichPresenceConfig Config;
 
         private List<TerritoryType> _territoryTypes;
@@ -42,27 +46,41 @@ namespace Dalamud.RichPresence
             }
         };
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        [PluginService]
+        private DalamudPluginInterface Interface { get; set; }
+
+        [PluginService]
+        private Framework Framework { get; set; }
+
+        [PluginService]
+        private ClientState State { get; set; }
+
+        [PluginService]
+        private DataManager Data { get; set; }
+
+        private CommandManager Command { get; set; }
+
+        public RichPresencePlugin()
         {
-            _pi = pluginInterface;
+            Config = Interface.GetPluginConfig() as RichPresenceConfig ?? new RichPresenceConfig();
 
-            Config = pluginInterface.GetPluginConfig() as RichPresenceConfig ?? new RichPresenceConfig();
-
-            _pi.UiBuilder.OnBuildUi += UiBuilder_OnBuildUi;
-            _pi.UiBuilder.OnOpenConfigUi += (sender, args) => _isMainConfigWindowDrawing = true;
+            Interface.UiBuilder.Draw += UiBuilder_OnBuildUi;
+            Interface.UiBuilder.OpenConfigUi += () => _isMainConfigWindowDrawing = true;
 
             _discordPresenceManager = new DiscordPresenceManager(DefaultPresence, DISCORD_CLIENT_ID);
             _discordPresenceManager.SetPresence(DefaultPresence);
 
-            _pi.Framework.OnUpdateEvent += Framework_OnUpdateEvent;
+            Framework.Update += Framework_OnUpdateEvent;
 
-            _pi.ClientState.TerritoryChanged += TerritoryChanged;
+            State.TerritoryChanged += TerritoryChanged;
 
-            _pi.CommandManager.AddHandler("/prp",
+            Command.AddHandler("/prp",
                 new CommandInfo((string cmd, string args) => _isMainConfigWindowDrawing = true)
                 {
                     HelpMessage = "Open the Discord Rich Presence configuration."
                 });
+
+            _territoryTypes = Data.GetExcelSheet<TerritoryType>().ToList();
         }
 
         private void TerritoryChanged(object sender, ushort e)
@@ -75,16 +93,8 @@ namespace Dalamud.RichPresence
         {
             try
             {
-                if (!_pi.Data.IsDataReady)
-                    return;
-
-                if (_territoryTypes == null)
-                {
-                    _territoryTypes = _pi.Data.GetExcelSheet<TerritoryType>().ToList();
-                }
-
-                var localPlayer = _pi.ClientState.LocalPlayer;
-                var territoryTypeId = _pi.ClientState.TerritoryType;
+                var localPlayer = State.LocalPlayer;
+                var territoryTypeId = State.TerritoryType;
 
                 // Data not ready
                 if (localPlayer == null)
@@ -104,9 +114,9 @@ namespace Dalamud.RichPresence
 
                 var largeImageKey = $"li_{loadingImageKey}";
 
-                var fcName = localPlayer.CompanyTag;
+                var fcName = localPlayer.CompanyTag.ToString();
 
-                if (fcName != string.Empty)
+                if (!fcName.IsNullOrEmpty())
                 {
                     fcName = $" <{fcName}>";
                 }
@@ -182,7 +192,7 @@ namespace Dalamud.RichPresence
                 if (ImGui.Button("Save and Close"))
                 {
                     _isMainConfigWindowDrawing = false;
-                    _pi.SavePluginConfig(Config);
+                    Interface.SavePluginConfig(Config);
                     PluginLog.Log("RP saved.");
                 }
 
@@ -194,12 +204,12 @@ namespace Dalamud.RichPresence
 
         public void Dispose()
         {
-            _pi.Framework.OnUpdateEvent -= Framework_OnUpdateEvent;
-            _pi.ClientState.TerritoryChanged -= TerritoryChanged;
+            Interface.UiBuilder.Draw -= this.UiBuilder_OnBuildUi;
+            Framework.Update -= Framework_OnUpdateEvent;
+            State.TerritoryChanged -= TerritoryChanged;
             _discordPresenceManager?.Dispose();
 
-            _pi.CommandManager.RemoveHandler("/prp");
-            _pi.Dispose();
+            Command.RemoveHandler("/prp");
         }
     }
 }

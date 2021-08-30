@@ -1,99 +1,80 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{42AAB406-846E-49A2-B2E4-D1428DACB8B1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dalamud.RichPresence</RootNamespace>
-    <AssemblyName>Dalamud.RichPresence</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-    <PathMap>$(AppOutputBase)=C:\goatsoft\companysecrets\dalamud\</PathMap>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Dalamud">
-      <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
-      <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Dalamud.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Dalamud.dll</HintPath>
-    </Reference>
-    <Reference Include="DiscordRPC, Version=1.0.175.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DiscordRichPresence.1.0.175\lib\net35\DiscordRPC.dll</HintPath>
-    </Reference>
-    <Reference Include="ImGui.NET">
-      <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
-      <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\ImGui.NET.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="ImGuiScene">
-      <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\ImGuiScene.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Lumina">
-      <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
-      <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Lumina.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Lumina.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Lumina.Excel">
-      <HintPath Condition="Exists('$(AppData)\XIVLauncher\addon\Hooks\dev')">$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
-      <HintPath Condition="Exists('$(DalamudHooks)')">$(DalamudHooks)\Lumina.Excel.dll</HintPath>
-      <HintPath Condition="Exists('..\Dalamud\Dalamud\bin\Debug')">..\Dalamud\Dalamud\bin\Debug\Lumina.Excel.dll</HintPath>
-      <HintPath Condition="Exists('..\..\Dalamud\Dalamud\bin\Debug')">..\..\Dalamud\Dalamud\bin\Debug\Lumina.Excel.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors">
-      <HintPath>$(AppData)\XIVLauncher\addon\Hooks\System.Numerics.Vectors.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Config\RichPresenceConfig.cs" />
-    <Compile Include="DiscordPresenceManager.cs" />
-    <Compile Include="RichPresencePlugin.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dalamud.RichPresence.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <AssemblyName>Dalamud.RichPresence</AssemblyName>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <PlatformTarget>x64</PlatformTarget>
+        <Platforms>x64;AnyCPU</Platforms>
+        <LangVersion>9.0</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+        <NoWarn>IDE0003</NoWarn>
+        <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Documentation">
+        <DocumentationFile></DocumentationFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Build">
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Label="Build">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Label="Build">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Dalamud">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="ImGui.NET">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="ImGuiScene">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Lumina">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Lumina.Excel">
+            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="Dalamud.RichPresence.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>
