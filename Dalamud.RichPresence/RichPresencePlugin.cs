@@ -58,6 +58,7 @@ namespace Dalamud.RichPresence
         [PluginService]
         private DataManager Data { get; set; }
 
+        [PluginService]
         private CommandManager Command { get; set; }
 
         public RichPresencePlugin()
