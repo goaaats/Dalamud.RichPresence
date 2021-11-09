@@ -1,0 +1,54 @@
+{
+  "DalamudRichPresenceOpenConfiguration": {
+    "message": "Discord Rich Presence의 구성을 엽니다.",
+    "description": "Dalamud.RichPresence.OpenConfiguration"
+  },
+  "DalamudRichPresenceConfiguration": {
+    "message": "Discord Rich Presence 구성",
+    "description": "Dalamud.RichPresence.Configuration"
+  },
+  "DalamudRichPresencePreface1": {
+    "message": "이 창에서 Discord Rich Presence를 구성할 수 있습니다.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
+  },
+  "DalamudRichPresencePreface2": {
+    "message": "Discord가 관리자로 실행되고 있지 않고 게임 활동이 활성화되어 있는지 확인하세요.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
+  },
+  "DalamudRichPresenceShowName": {
+    "message": "캐릭터 이름 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowName"
+  },
+  "DalamudRichPresenceShowFreeCompany": {
+    "message": "프리 컴퍼니 태그 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
+  },
+  "DalamudRichPresenceShowWorld": {
+    "message": "현재 세계 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowWorld"
+  },
+  "DalamudRichPresenceShowStartTime": {
+    "message": "영역에 경과 시간 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
+  },
+  "DalamudRichPresenceResetTimeWhenChangingZones": {
+    "message": "영역을 변경할 때 타이머 다시 설정",
+    "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
+  },
+  "DalamudRichPresenceShowJob": {
+    "message": "현재 작업 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowJob"
+  },
+  "DalamudRichPresenceAbbreviateJob": {
+    "message": "현재 작업 이름을 줄임",
+    "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
+  },
+  "DalamudRichPresenceShowLevel": {
+    "message": "현재 작업 수준 표시",
+    "description": "Dalamud.RichPresence.Configuration.ShowLevel"
+  },
+  "DalamudRichPresenceSaveAndClose": {
+    "message": "저장하고 닫기",
+    "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  }
+}

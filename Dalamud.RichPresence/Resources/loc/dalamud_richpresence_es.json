@@ -1,0 +1,54 @@
+{
+  "DalamudRichPresenceOpenConfiguration": {
+    "message": "Abra la configuración de Discord Rich Presence.",
+    "description": "Dalamud.RichPresence.OpenConfiguration"
+  },
+  "DalamudRichPresenceConfiguration": {
+    "message": "Configuración de Discord Rich Presence",
+    "description": "Dalamud.RichPresence.Configuration"
+  },
+  "DalamudRichPresencePreface1": {
+    "message": "Esta ventana le permite configurar Discord Rich Presence.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
+  },
+  "DalamudRichPresencePreface2": {
+    "message": "Asegúrate de que Discord no se esté ejecutando como administrador y de que la Actividad del Juego esté habilitada.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
+  },
+  "DalamudRichPresenceShowName": {
+    "message": "Mostrar el nombre del personaje",
+    "description": "Dalamud.RichPresence.Configuration.ShowName"
+  },
+  "DalamudRichPresenceShowFreeCompany": {
+    "message": "Mostrar la sigla de la Compañía libre",
+    "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
+  },
+  "DalamudRichPresenceShowWorld": {
+    "message": "Mostrar el nombre del mundo",
+    "description": "Dalamud.RichPresence.Configuration.ShowWorld"
+  },
+  "DalamudRichPresenceShowStartTime": {
+    "message": "Mostrar el tiempo transcurrido en las zonas",
+    "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
+  },
+  "DalamudRichPresenceResetTimeWhenChangingZones": {
+    "message": "Restablecer el temporizador al cambiar de zona",
+    "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
+  },
+  "DalamudRichPresenceShowJob": {
+    "message": "Mostrar el trabajo actual",
+    "description": "Dalamud.RichPresence.Configuration.ShowJob"
+  },
+  "DalamudRichPresenceAbbreviateJob": {
+    "message": "Abreviar el nombre del trabajo actual",
+    "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
+  },
+  "DalamudRichPresenceShowLevel": {
+    "message": "Mostrar el nivel de trabajo actual",
+    "description": "Dalamud.RichPresence.Configuration.ShowLevel"
+  },
+  "DalamudRichPresenceSaveAndClose": {
+    "message": "Guardar y Cerrar",
+    "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  }
+}

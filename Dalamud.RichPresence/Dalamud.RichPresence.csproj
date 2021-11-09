@@ -9,7 +9,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <NoWarn>IDE0003</NoWarn>
-        <AssemblyVersion>1.7.0.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
     </PropertyGroup>
 
     <PropertyGroup Label="Documentation">
@@ -35,7 +35,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
+        <PackageReference Include="DiscordRichPresence" Version="1.0.175" GeneratePathProperty="true" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
             <PrivateAssets>all</PrivateAssets>
@@ -65,16 +65,19 @@
             <Private>False</Private>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="Dalamud.RichPresence.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-    </ItemGroup>
-    
-    <ItemGroup>
-      <None Update="icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Include="$(PkgDiscordRichPresence)\lib\net35\DiscordRPC.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="icon.png" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Resources/loc/*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>

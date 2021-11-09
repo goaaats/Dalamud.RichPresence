@@ -1,0 +1,78 @@
+{
+  "DalamudRichPresenceInMenus": {
+    "message": "Dans les menus",
+    "description": "Dalamud.RichPresence.Details.InMenus"
+  },
+  "DalamudRichPresenceLevel": {
+    "message": "Nv {0}",
+    "description": "Dalamud.RichPresence.Job.Level"
+  },
+  "DalamudRichPresenceOnline": {
+    "message": "En ligne",
+    "description": "Dalamud.RichPresence.Status.Online"
+  },
+  "DalamudRichPresenceTheSource": {
+    "message": "La Source",
+    "description": "Dalamud.RichPresence.Place.TheSource"
+  },
+  "DalamudRichPresenceVoid": {
+    "message": "Vide",
+    "description": "Dalamud.RichPresence.Zone.Void"
+  },
+  "DalamudRichPresenceUnknown": {
+    "message": "Inconnu",
+    "description": "Dalamud.RichPresence.PlaceZone.Unknown"
+  },
+  "DalamudRichPresenceOpenConfiguration": {
+    "message": "Ouvrez la configuration de Discord Rich Presence.",
+    "description": "Dalamud.RichPresence.OpenConfiguration"
+  },
+  "DalamudRichPresenceConfiguration": {
+    "message": "Configuration de Discord Rich Presence",
+    "description": "Dalamud.RichPresence.Configuration"
+  },
+  "DalamudRichPresencePreface1": {
+    "message": "Cette fenêtre vous permet de configurer Discord Rich Presence.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
+  },
+  "DalamudRichPresencePreface2": {
+    "message": "Veuillez vous assurer que Discord n'est pas exécuté en tant qu'administrateur et que l'Activité de Jeu est activée.",
+    "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
+  },
+  "DalamudRichPresenceShowName": {
+    "message": "Afficher le nom du personnage",
+    "description": "Dalamud.RichPresence.Configuration.ShowName"
+  },
+  "DalamudRichPresenceShowFreeCompany": {
+    "message": "Afficher le sigle de Compagnie libre",
+    "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
+  },
+  "DalamudRichPresenceShowWorld": {
+    "message": "Afficher le nom du monde",
+    "description": "Dalamud.RichPresence.Configuration.ShowWorld"
+  },
+  "DalamudRichPresenceShowStartTime": {
+    "message": "Afficher le temps écoulé dans les zones",
+    "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
+  },
+  "DalamudRichPresenceResetTimeWhenChangingZones": {
+    "message": "Réinitialiser la minuterie lors du changement de zone",
+    "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
+  },
+  "DalamudRichPresenceShowJob": {
+    "message": "Afficher le job actuel",
+    "description": "Dalamud.RichPresence.Configuration.ShowJob"
+  },
+  "DalamudRichPresenceAbbreviateJob": {
+    "message": "Abréger le nom du job actuel",
+    "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
+  },
+  "DalamudRichPresenceShowLevel": {
+    "message": "Afficher le niveau du job actuel",
+    "description": "Dalamud.RichPresence.Configuration.ShowLevel"
+  },
+  "DalamudRichPresenceSaveAndClose": {
+    "message": "Sauvegarder et Fermer",
+    "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  }
+}

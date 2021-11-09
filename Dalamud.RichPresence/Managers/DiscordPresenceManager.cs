@@ -1,64 +1,77 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using DiscordRPC;
 using DiscordRPC.Logging;
 
-namespace Dalamud.RichPresence
+namespace Dalamud.RichPresence.Managers
 {
-    class DiscordPresenceManager : IDisposable
+    internal class DiscordPresenceManager : IDisposable
     {
-        private readonly DiscordRPC.RichPresence _initialPresence;
-        private readonly string _clientId;
-        private DiscordRpcClient _rpcClient;
+        private const string DISCORD_CLIENT_ID = "478143453536976896";
+        private DiscordRpcClient RpcClient;
 
-        public DiscordPresenceManager(DiscordRPC.RichPresence initialPresence, string clientId)
+        internal DiscordPresenceManager()
         {
-            _initialPresence = initialPresence;
-            _clientId = clientId;
-
-            CreateClient();
+            this.CreateClient();
         }
 
         private void CreateClient()
         {
-            _rpcClient = new DiscordRpcClient(_clientId);
+            if (RpcClient is null || RpcClient.IsDisposed)
+            {
+                // Create new RPC client
+                RpcClient = new DiscordRpcClient(DISCORD_CLIENT_ID);
 
-            //Set the logger
-            _rpcClient.Logger = new ConsoleLogger { Level = LogLevel.Warning };
+                // Skip identical presences
+                RpcClient.SkipIdenticalPresence = true;
 
-            //Subscribe to events
-            _rpcClient.OnPresenceUpdate += (sender, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
+                // Set logger
+                RpcClient.Logger = new ConsoleLogger { Level = LogLevel.Warning };
 
-            //Connect to the RPC
-            _rpcClient.Initialize();
+                // Subscribe to events
+                RpcClient.OnPresenceUpdate += (sender, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
+            }
 
-            _rpcClient.SetPresence(_initialPresence);
+            if (!RpcClient.IsInitialized)
+            {
+                // Connect to the RPC
+                RpcClient.Initialize();
+            }
         }
 
         public void Update()
         {
-            //Invoke all the events, such as OnPresenceUpdate
-            _rpcClient.Invoke();
+            // Invoke all the events, such as OnPresenceUpdate
+            RpcClient?.Invoke();
         }
 
-        public void SetPresence(DiscordRPC.RichPresence presence)
+        public void SetPresence(DiscordRPC.RichPresence newPresence)
         {
-            if (_rpcClient.IsDisposed)
-                CreateClient();
+            this.CreateClient();
+            RpcClient.SetPresence(newPresence);
+        }
 
-            if (presence.State != _rpcClient.CurrentPresence.State ||
-                presence.Details != _rpcClient.CurrentPresence.Details ||
-                presence.Assets.SmallImageText != _rpcClient.CurrentPresence.Assets.SmallImageText ||
-                presence.Assets.LargeImageText != _rpcClient.CurrentPresence.Assets.LargeImageText)
-                _rpcClient.SetPresence(presence);
+        public void ClearPresence()
+        {
+            this.CreateClient();
+            RpcClient.ClearPresence();
+        }
+
+        public void UpdatePresenceDetails(string details)
+        {
+            this.CreateClient();
+            RpcClient.UpdateDetails(details);
+        }
+
+        public void UpdatePresenceStartTime(DateTime newStartTime)
+        {
+            this.CreateClient();
+            RpcClient.UpdateStartTime(newStartTime);
         }
 
         public void Dispose()
         {
-            _rpcClient?.Dispose();
+            RpcClient?.Dispose();
         }
     }
 }
