@@ -35,6 +35,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DalamudPackager" Version="2.1.4" />
         <PackageReference Include="DiscordRichPresence" Version="1.0.175" GeneratePathProperty="true" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
@@ -64,6 +65,10 @@
             <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
             <Private>False</Private>
         </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Remove="Resources/loc/*.json" />
     </ItemGroup>
 
     <ItemGroup>
