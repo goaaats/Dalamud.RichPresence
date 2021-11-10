@@ -45,8 +45,8 @@ namespace Dalamud.RichPresence
         internal static LocalizationManager LocalizationManager { get; private set; }
         internal static DiscordPresenceManager DiscordPresenceManager { get; private set; }
 
-        private RichPresenceConfigWindow RichPresenceConfigWindow;
-        internal static RichPresenceConfig RichPresenceConfig { get; private set; }
+        private static RichPresenceConfigWindow RichPresenceConfigWindow;
+        internal static RichPresenceConfig RichPresenceConfig { get; set; }
 
         private List<TerritoryType> Territories;
         private DateTime startTime = DateTime.UtcNow;
