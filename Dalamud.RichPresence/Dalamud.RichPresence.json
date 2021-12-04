@@ -6,6 +6,5 @@
   "InternalName": "Dalamud.RichPresence",
   "AssemblyVersion": "2.0.0.0",
   "ApplicableVersion": "any",
-  "Tags": [ "Discord" ],
-  "DalamudApiLevel": 4
+  "Tags": [ "Discord" ]
 }
