@@ -12,7 +12,7 @@
     "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
   },
   "DalamudRichPresencePreface2": {
-    "message": "Убедитесь, что Discord не запущен от имени администратора и у вас включена Игровая Дктивность.",
+    "message": "Убедитесь, что Discord не запущен от имени администратора и у вас включена Игровая Aктивность.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
   },
   "DalamudRichPresenceShowName": {
@@ -24,27 +24,27 @@
     "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
   },
   "DalamudRichPresenceShowWorld": {
-    "message": "Показать мировое имя",
+    "message": "Показать имя мира",
     "description": "Dalamud.RichPresence.Configuration.ShowWorld"
   },
   "DalamudRichPresenceShowStartTime": {
-    "message": "Показать прошедшее время в поясах",
+    "message": "Показать прошедшее время в игре",
     "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
   },
   "DalamudRichPresenceResetTimeWhenChangingZones": {
-    "message": "Сброс таймера при изменении зон",
+    "message": "Сброс таймера при изменении локаций",
     "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
   },
   "DalamudRichPresenceShowJob": {
-    "message": "Показать текущую работу",
+    "message": "Показать текущий класс",
     "description": "Dalamud.RichPresence.Configuration.ShowJob"
   },
   "DalamudRichPresenceAbbreviateJob": {
-    "message": "Сократите название текущей работы",
+    "message": "Сократить названия текущего класса",
     "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
   },
   "DalamudRichPresenceShowLevel": {
-    "message": "Показать текущий уровень работы",
+    "message": "Показать текущий уровень класса",
     "description": "Dalamud.RichPresence.Configuration.ShowLevel"
   },
   "DalamudRichPresenceSaveAndClose": {
