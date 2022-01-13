@@ -6,6 +6,8 @@ namespace Dalamud.RichPresence.Configuration
     {
         public int Version { get; set; } = 1;
 
+        // Show login queue position
+        public bool ShowLoginQueuePosition = true;
         // Show character name
         public bool ShowName = true;
         // Show Free Company Tag
