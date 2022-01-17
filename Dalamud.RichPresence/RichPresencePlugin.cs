@@ -71,6 +71,7 @@ namespace Dalamud.RichPresence
 
             DiscordPresenceManager = new DiscordPresenceManager();
             LocalizationManager = new LocalizationManager();
+            IpcManager = new IpcManager();
             SetDefaultPresence();
 
             RichPresenceConfigWindow = new RichPresenceConfigWindow();
@@ -109,6 +110,8 @@ namespace Dalamud.RichPresence
 
             DiscordPresenceManager.ClearPresence();
             DiscordPresenceManager?.Dispose();
+
+            IpcManager?.Dispose();
         }
 
         private void SetDefaultPresence()
@@ -180,6 +183,8 @@ namespace Dalamud.RichPresence
                 var richPresenceTimestamps =
                     RichPresenceConfig.ShowStartTime ? new Timestamps(startTime) : null;
 
+                DiscordRPC.RichPresence richPresence;
+
                 // Return early if data is not ready
                 if (localPlayer is null)
                 {
@@ -226,6 +231,9 @@ namespace Dalamud.RichPresence
                     };
 
                     presenceInQueue = true;
+
+                    // Request new presence to be set
+                    DiscordPresenceManager.SetPresence(richPresence);
 
                     return;
                 }
@@ -310,7 +318,7 @@ namespace Dalamud.RichPresence
                 }
 
                 // Create rich presence object
-                var richPresence = new DiscordRPC.RichPresence
+                richPresence = new DiscordRPC.RichPresence
                 {
                     Details = richPresenceDetails,
                     State = richPresenceState,
