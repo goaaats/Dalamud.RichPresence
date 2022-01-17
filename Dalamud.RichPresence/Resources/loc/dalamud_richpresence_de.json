@@ -24,31 +24,31 @@
     "description": "Dalamud.RichPresence.PlaceZone.Unknown"
   },
   "DalamudRichPresenceOpenConfiguration": {
-    "message": "Öffnen Sie die Konfiguration von Discord Rich Presence.",
+    "message": "Discord Rich Presence Einstellungen öffnen.",
     "description": "Dalamud.RichPresence.OpenConfiguration"
   },
   "DalamudRichPresenceConfiguration": {
-    "message": "Konfiguration von Discord Rich Presence",
+    "message": "Discord Rich Presence Einstellungen",
     "description": "Dalamud.RichPresence.Configuration"
   },
   "DalamudRichPresencePreface1": {
-    "message": "In diesem Fenster können Sie Discord Rich Presence konfigurieren.",
+    "message": "Hier kannst du Discord Rich Presence konfigurieren.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
   },
   "DalamudRichPresencePreface2": {
-    "message": "Bitte stellen Sie sicher, dass Discord nicht als administrator ausgeführt wird und Sie die Spielaktivität aktiviert haben.",
+    "message": "Bitte stelle sicher, dass Discord nicht als Administrator läuft und du die Spielaktivität aktiviert hast.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
   },
   "DalamudRichPresenceShowName": {
-    "message": "Charakternamen anzeigen",
+    "message": "Charaktername anzeigen",
     "description": "Dalamud.RichPresence.Configuration.ShowName"
   },
   "DalamudRichPresenceShowFreeCompany": {
-    "message": "Kürzel der Freie Gesellschaft anzeigen",
+    "message": "Freie Gesellschaft anzeigen",
     "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
   },
   "DalamudRichPresenceShowWorld": {
-    "message": "Weltnamen anzeigen",
+    "message": "Weltname anzeigen",
     "description": "Dalamud.RichPresence.Configuration.ShowWorld"
   },
   "DalamudRichPresenceShowStartTime": {
@@ -56,7 +56,7 @@
     "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
   },
   "DalamudRichPresenceResetTimeWhenChangingZones": {
-    "message": "Timer bei Zonenwechsel zurücksetzen",
+    "message": "Timer beim Ändern von Zonen zurücksetzen",
     "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
   },
   "DalamudRichPresenceShowJob": {
@@ -64,15 +64,23 @@
     "description": "Dalamud.RichPresence.Configuration.ShowJob"
   },
   "DalamudRichPresenceAbbreviateJob": {
-    "message": "Kürzen Sie den aktuellen Jobnamen",
+    "message": "Aktuellen Jobnamen abkürzen",
     "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
   },
   "DalamudRichPresenceShowLevel": {
-    "message": "Aktuelle Jobstufe anzeigen",
+    "message": "Aktuelle Job-Stufe anzeigen",
     "description": "Dalamud.RichPresence.Configuration.ShowLevel"
   },
   "DalamudRichPresenceSaveAndClose": {
     "message": "Speichern und Schließen",
     "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  },
+  "DalamudRichPresenceInADuty": {
+    "message": "In Inhalten",
+    "description": "Dalamud.RichPresence.InADuty"
+  },
+  "DalamudRichPresenceShowParty": {
+    "message": "Aktuelle Gruppe anzeigen",
+    "description": "Dalamud.RichPresence.Configuration.ShowParty"
   }
 }
