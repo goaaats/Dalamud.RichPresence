@@ -298,6 +298,14 @@ namespace Dalamud.RichPresence
                     richPresence.Party = party;
                 }
 
+                var onlineStatusEn = localPlayer.OnlineStatus.GetWithLanguage(ClientLanguage.English);
+                if (RichPresenceConfig.ShowAfk && onlineStatusEn != null && onlineStatusEn.Name.RawString.Contains("Away from Keyboard"))
+                {
+                    var text = localPlayer.OnlineStatus.GameData!.Name.RawString;
+                    richPresence.State = text;
+                    richPresence.Assets.SmallImageKey = "away";
+                }
+
                 // Request new presence to be set
                 DiscordPresenceManager.SetPresence(richPresence);
             }
