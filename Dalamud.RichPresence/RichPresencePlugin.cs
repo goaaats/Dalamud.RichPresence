@@ -58,8 +58,8 @@ namespace Dalamud.RichPresence
             Assets = new Assets
             {
                 LargeImageKey = DEFAULT_LARGE_IMAGE_KEY,
-                SmallImageKey = DEFAULT_SMALL_IMAGE_KEY
-            }
+                SmallImageKey = DEFAULT_SMALL_IMAGE_KEY,
+            },
         };
 
         public RichPresencePlugin()
@@ -185,23 +185,28 @@ namespace Dalamud.RichPresence
 
                 // Details defaults to player name
                 var richPresenceDetails = localPlayer.Name.ToString();
+
                 // State defaults to current world
                 var richPresenceState = localPlayer.CurrentWorld.GameData.Name.ToString();
+
                 // Large image defaults to world map
                 var richPresenceLargeImageText = territoryName;
                 var richPresenceLargeImageKey = DEFAULT_LARGE_IMAGE_KEY;
+
                 // Small image defaults to "Online"
                 var richPresenceSmallImageKey = DEFAULT_SMALL_IMAGE_KEY;
                 var richPresenceSmallImageText = LocalizationManager.Localize("DalamudRichPresenceOnline", LocalizationLanguage.Client);
+
                 // Show start timestamp if configured
-                Timestamps richPresenceTimestamps = (RichPresenceConfig.ShowStartTime) ? new Timestamps(startTime) : null;
+                var richPresenceTimestamps = RichPresenceConfig.ShowStartTime ? new Timestamps(startTime) : null;
 
                 if (territoryId != 0)
                 {
                     // Read territory data from generated sheet
-                    var territory = Territories.First(Row => Row.RowId == territoryId);
+                    var territory = this.Territories.First(row => row.RowId == territoryId);
                     territoryName = territory.PlaceName.Value?.Name ?? LocalizationManager.Localize("DalamudRichPresenceUnknown", LocalizationLanguage.Client);
                     territoryRegion = territory.PlaceNameRegion.Value?.Name ?? LocalizationManager.Localize("DalamudRichPresenceUnknown", LocalizationLanguage.Client);
+
                     // Set large image to territory
                     richPresenceLargeImageText = territoryName;
                     richPresenceLargeImageKey = $"li_{territory.LoadingImage}";
@@ -214,8 +219,9 @@ namespace Dalamud.RichPresence
                     if (RichPresenceConfig.ShowFreeCompany && localPlayer.CurrentWorld.Id == localPlayer.HomeWorld.Id)
                     {
                         var fcTag = localPlayer.CompanyTag.ToString();
+
                         // Append free company tag to player name if it exists
-                        richPresenceDetails = (fcTag.IsNullOrEmpty()) ? richPresenceDetails : $"{richPresenceDetails} «{fcTag}»";
+                        richPresenceDetails = fcTag.IsNullOrEmpty() ? richPresenceDetails : $"{richPresenceDetails} «{fcTag}»";
                     }
                     else if (RichPresenceConfig.ShowWorld && localPlayer.CurrentWorld.Id != localPlayer.HomeWorld.Id)
                     {
@@ -234,6 +240,7 @@ namespace Dalamud.RichPresence
                 {
                     // Set small image to job icon
                     richPresenceSmallImageKey = $"class_{localPlayer.ClassJob.Id}";
+
                     // Abbreviate job name if configured
                     richPresenceSmallImageText = (RichPresenceConfig.AbbreviateJob)
                         ? localPlayer.ClassJob.GameData.Abbreviation
@@ -264,10 +271,32 @@ namespace Dalamud.RichPresence
                         LargeImageKey = richPresenceLargeImageKey,
                         LargeImageText = richPresenceLargeImageText,
                         SmallImageKey = richPresenceSmallImageKey,
-                        SmallImageText = richPresenceSmallImageText
+                        SmallImageText = richPresenceSmallImageText,
                     },
-                    Timestamps = richPresenceTimestamps
+                    Timestamps = richPresenceTimestamps,
                 };
+
+                if (PartyList.Length > 0 && PartyList.PartyId != 0 && RichPresenceConfig.ShowParty)
+                {
+                    var cfcTerri = DataManager.Excel.GetSheet<ContentFinderCondition>()!
+                        .FirstOrDefault(x => x.TerritoryType.Row == ClientState.TerritoryType);
+
+                    var partyMax = cfcTerri != null && cfcTerri.ContentType.Row == 2 ? 4 : 8;
+
+                    if (cfcTerri != null)
+                    {
+                        richPresence.State = LocalizationManager.Localize("DalamudRichPresenceInADuty", LocalizationLanguage.Client);
+                    }
+
+                    var party = new Party
+                    {
+                        Size = PartyList.Length,
+                        Max = partyMax, // Check dungeon terris, change to 4
+                        ID = GetStringSha256Hash(PartyList.PartyId.ToString()),
+                    };
+
+                    richPresence.Party = party;
+                }
 
                 // Request new presence to be set
                 DiscordPresenceManager.SetPresence(richPresence);
@@ -276,6 +305,19 @@ namespace Dalamud.RichPresence
             {
                 PluginLog.LogError(ex, "Could not run OnUpdate.");
             }
+        }
+
+        internal static string GetStringSha256Hash(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            using var sha = new System.Security.Cryptography.SHA256Managed();
+            var textData = System.Text.Encoding.UTF8.GetBytes(text);
+            var hash = sha.ComputeHash(textData);
+            return BitConverter.ToString(hash).Replace("-", string.Empty);
         }
     }
 }

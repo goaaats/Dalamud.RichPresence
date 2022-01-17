@@ -24,5 +24,7 @@ namespace Dalamud.RichPresence.Configuration
         public bool AbbreviateJob = true;
         // Show current job level
         public bool ShowLevel = true;
+
+        public bool ShowParty = true;
     }
 }

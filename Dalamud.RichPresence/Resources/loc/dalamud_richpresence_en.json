@@ -74,5 +74,13 @@
   "DalamudRichPresenceSaveAndClose": {
     "message": "Save and Close",
     "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  },
+  "DalamudRichPresenceInADuty": {
+    "message": "In a duty",
+    "description": "Dalamud.RichPresence.InADuty"
+  },
+  "DalamudRichPresenceShowParty": {
+    "message": "Show current party",
+    "description": "Dalamud.RichPresence.Configuration.ShowParty"
   }
 }
