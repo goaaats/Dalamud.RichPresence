@@ -3,6 +3,14 @@
     "message": "In Menus",
     "description": "Dalamud.RichPresence.Details.InMenus"
   },
+  "DalamudRichPresenceInLoginQueue": {
+    "message": "In Login Queue (#{0})",
+    "description": "Dalamud.RichPresence.Details.InLoginQueue"
+  },
+  "DalamudRichPresenceQueueEstimate": {
+    "message": "ETA: {0:h':'mm':'ss}",
+    "description": "Dalamud.RichPresence.Details.QueueEstimate"
+  },
   "DalamudRichPresenceLevel": {
     "message": "Lv {0}",
     "description": "Dalamud.RichPresence.Job.Level"
@@ -38,6 +46,14 @@
   "DalamudRichPresencePreface2": {
     "message": "Please make sure Discord is not running as administrator and you have Game Activity enabled.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
+  },
+  "DalamudRichPresenceShowLoginQueuePosition": {
+    "message": "Show login queue position",
+    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePosition"
+  },
+  "DalamudRichPresenceShowLoginQueuePositionDetail": {
+    "message": "This integration requires the Waitingway plugin to be installed.",
+    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePositionDetail"
   },
   "DalamudRichPresenceShowName": {
     "message": "Show character name",

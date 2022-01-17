@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,12 +45,14 @@ namespace Dalamud.RichPresence
 
         internal static LocalizationManager LocalizationManager { get; private set; }
         internal static DiscordPresenceManager DiscordPresenceManager { get; private set; }
+        internal static IpcManager IpcManager { get; private set; }
 
         private static RichPresenceConfigWindow RichPresenceConfigWindow;
         internal static RichPresenceConfig RichPresenceConfig { get; set; }
 
         private List<TerritoryType> Territories;
         private DateTime startTime = DateTime.UtcNow;
+        private bool presenceInQueue;
 
         private const string DEFAULT_LARGE_IMAGE_KEY = "li_1";
         private const string DEFAULT_SMALL_IMAGE_KEY = "class_0";
@@ -174,9 +176,57 @@ namespace Dalamud.RichPresence
 
                 var localPlayer = ClientState.LocalPlayer;
 
+                // Show start timestamp if configured
+                var richPresenceTimestamps =
+                    RichPresenceConfig.ShowStartTime ? new Timestamps(startTime) : null;
+
                 // Return early if data is not ready
                 if (localPlayer is null)
                 {
+                    // Show login queue information if configured
+                    if (!RichPresenceConfig.ShowLoginQueuePosition || !IpcManager.IsInLoginQueue())
+                    {
+                        // Reset to default presence if we have left the queue
+                        if (presenceInQueue)
+                        {
+                            presenceInQueue = false;
+                            SetDefaultPresence();
+                        }
+
+                        return;
+                    }
+
+                    var queuePosition = IpcManager.GetQueuePosition();
+                    if (queuePosition < 0)
+                    {
+                        // Position not yet loaded, so we wait
+                        return;
+                    }
+
+                    var queueEstimate = IpcManager.GetQueueEstimate();
+                    var queueEstimateFormatted = queueEstimate?.TotalSeconds >= 1d
+                        ? String.Format(
+                            LocalizationManager.Localize("DalamudRichPresenceQueueEstimate",
+                                LocalizationLanguage.Client), queueEstimate)
+                        : String.Empty;
+
+                    // Create rich presence object
+                    richPresence = new DiscordRPC.RichPresence
+                    {
+                        Details = String.Format(
+                            LocalizationManager.Localize("DalamudRichPresenceInLoginQueue",
+                                LocalizationLanguage.Client), queuePosition),
+                        State = queueEstimateFormatted,
+                        Assets = new Assets
+                        {
+                            LargeImageKey = DEFAULT_LARGE_IMAGE_KEY,
+                            SmallImageKey = DEFAULT_SMALL_IMAGE_KEY
+                        },
+                        Timestamps = richPresenceTimestamps
+                    };
+
+                    presenceInQueue = true;
+
                     return;
                 }
 
@@ -197,9 +247,6 @@ namespace Dalamud.RichPresence
                 // Small image defaults to "Online"
                 var richPresenceSmallImageKey = DEFAULT_SMALL_IMAGE_KEY;
                 var richPresenceSmallImageText = LocalizationManager.Localize("DalamudRichPresenceOnline", LocalizationLanguage.Client);
-
-                // Show start timestamp if configured
-                var richPresenceTimestamps = RichPresenceConfig.ShowStartTime ? new Timestamps(startTime) : null;
 
                 if (territoryId != 0)
                 {
