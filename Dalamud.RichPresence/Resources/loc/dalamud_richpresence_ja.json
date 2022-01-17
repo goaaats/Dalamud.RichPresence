@@ -1,6 +1,6 @@
 {
   "DalamudRichPresenceInMenus": {
-    "message": "メニューで",
+    "message": "In Menus",
     "description": "Dalamud.RichPresence.Details.InMenus"
   },
   "DalamudRichPresenceLevel": {
@@ -8,71 +8,79 @@
     "description": "Dalamud.RichPresence.Job.Level"
   },
   "DalamudRichPresenceOnline": {
-    "message": "オンライン",
+    "message": "Online",
     "description": "Dalamud.RichPresence.Status.Online"
   },
   "DalamudRichPresenceTheSource": {
-    "message": "起源",
+    "message": "The Source",
     "description": "Dalamud.RichPresence.Place.TheSource"
   },
   "DalamudRichPresenceVoid": {
-    "message": "虚",
+    "message": "Void",
     "description": "Dalamud.RichPresence.Zone.Void"
   },
   "DalamudRichPresenceUnknown": {
-    "message": "不明",
+    "message": "Unknown",
     "description": "Dalamud.RichPresence.PlaceZone.Unknown"
   },
   "DalamudRichPresenceOpenConfiguration": {
-    "message": "Dalamud.RichPresenceの構成を開きます。",
+    "message": "Open the Discord Rich Presence configuration.",
     "description": "Dalamud.RichPresence.OpenConfiguration"
   },
   "DalamudRichPresenceConfiguration": {
-    "message": "Discord Rich Presenceの構成",
+    "message": "Discord Rich Presence Configuration",
     "description": "Dalamud.RichPresence.Configuration"
   },
   "DalamudRichPresencePreface1": {
-    "message": "このウィンドウでは、Discord RichPresenceを設定できます。",
+    "message": "This window allows you to configure Discord Rich Presence.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line1"
   },
   "DalamudRichPresencePreface2": {
-    "message": "Discordが管理者として実行されておらず、ゲームアクティビティが有効になっていることを確認してください。",
+    "message": "Please make sure Discord is not running as administrator and you have Game Activity enabled.",
     "description": "Dalamud.RichPresence.Configuration.Preface.Line2"
   },
   "DalamudRichPresenceShowName": {
-    "message": "キャラクター名を表示",
+    "message": "Show character name",
     "description": "Dalamud.RichPresence.Configuration.ShowName"
   },
   "DalamudRichPresenceShowFreeCompany": {
-    "message": "フリーカンパニータグ表示",
+    "message": "Show Free Company Tag",
     "description": "Dalamud.RichPresence.Configuration.ShowFreeCompany"
   },
   "DalamudRichPresenceShowWorld": {
-    "message": "世界名を表示",
+    "message": "Show world name",
     "description": "Dalamud.RichPresence.Configuration.ShowWorld"
   },
   "DalamudRichPresenceShowStartTime": {
-    "message": "ゾーンで経過時間を表示する",
+    "message": "Show elapsed time in zones",
     "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
   },
   "DalamudRichPresenceResetTimeWhenChangingZones": {
-    "message": "ゾーン変更時にタイマーをリセット",
+    "message": "Reset timer when changing zones",
     "description": "Dalamud.RichPresence.Configuration.ResetTimeWhenChangingZones"
   },
   "DalamudRichPresenceShowJob": {
-    "message": "現在のジョブを表示する",
+    "message": "Show current job",
     "description": "Dalamud.RichPresence.Configuration.ShowJob"
   },
   "DalamudRichPresenceAbbreviateJob": {
-    "message": "現在のジョブ名の略語",
+    "message": "Abbreviate current job name",
     "description": "Dalamud.RichPresence.Configuration.AbbreviateJob"
   },
   "DalamudRichPresenceShowLevel": {
-    "message": "現在のジョブレベルを表示する",
+    "message": "Show current job level",
     "description": "Dalamud.RichPresence.Configuration.ShowLevel"
   },
   "DalamudRichPresenceSaveAndClose": {
-    "message": "保存して閉じる",
+    "message": "Save and Close",
     "description": "Dalamud.RichPresence.Configuration.SaveAndClose"
+  },
+  "DalamudRichPresenceInADuty": {
+    "message": "In a duty",
+    "description": "Dalamud.RichPresence.InADuty"
+  },
+  "DalamudRichPresenceShowParty": {
+    "message": "Show current party",
+    "description": "Dalamud.RichPresence.Configuration.ShowParty"
   }
 }
