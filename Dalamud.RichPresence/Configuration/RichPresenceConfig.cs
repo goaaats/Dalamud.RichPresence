@@ -28,5 +28,7 @@ namespace Dalamud.RichPresence.Configuration
         public bool ShowLevel = true;
 
         public bool ShowParty = true;
+
+        public bool ShowAfk = true;
     }
 }

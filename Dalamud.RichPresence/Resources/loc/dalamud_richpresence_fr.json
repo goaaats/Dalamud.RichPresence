@@ -82,5 +82,25 @@
   "DalamudRichPresenceShowParty": {
     "message": "Show current party",
     "description": "Dalamud.RichPresence.Configuration.ShowParty"
+  },
+  "DalamudRichPresenceShowAFK": {
+    "message": "Show away from keyboard status",
+    "description": "Dalamud.RichPresence.Configuration.ShowAFK"
+  },
+  "DalamudRichPresenceInLoginQueue": {
+    "message": "In Login Queue (#{0})",
+    "description": "Dalamud.RichPresence.Details.InLoginQueue"
+  },
+  "DalamudRichPresenceQueueEstimate": {
+    "message": "ETA: {0:h':'mm':'ss}",
+    "description": "Dalamud.RichPresence.Details.QueueEstimate"
+  },
+  "DalamudRichPresenceShowLoginQueuePosition": {
+    "message": "Show login queue position",
+    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePosition"
+  },
+  "DalamudRichPresenceShowLoginQueuePositionDetail": {
+    "message": "This integration requires the Waitingway plugin to be installed.",
+    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePositionDetail"
   }
 }
