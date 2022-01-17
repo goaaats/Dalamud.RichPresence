@@ -19,6 +19,7 @@ using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Interface;
 using Dalamud.RichPresence.Managers;
 using Dalamud.RichPresence.Models;
+using FFXIVClientStructs.FFXIV.Client.UI.Info;
 
 namespace Dalamud.RichPresence
 {
@@ -165,7 +166,7 @@ namespace Dalamud.RichPresence
             );
         }
 
-        private void UpdateRichPresence(Framework framework)
+        private unsafe void UpdateRichPresence(Framework framework)
         {
             try
             {
@@ -276,26 +277,57 @@ namespace Dalamud.RichPresence
                     Timestamps = richPresenceTimestamps,
                 };
 
-                if (PartyList.Length > 0 && PartyList.PartyId != 0 && RichPresenceConfig.ShowParty)
+                if (RichPresenceConfig.ShowParty)
                 {
-                    var cfcTerri = DataManager.Excel.GetSheet<ContentFinderCondition>()!
-                        .FirstOrDefault(x => x.TerritoryType.Row == ClientState.TerritoryType);
-
-                    var partyMax = cfcTerri != null && cfcTerri.ContentType.Row == 2 ? 4 : 8;
-
-                    if (cfcTerri != null)
+                    if (PartyList.Length > 0 && PartyList.PartyId != 0)
                     {
-                        richPresence.State = LocalizationManager.Localize("DalamudRichPresenceInADuty", LocalizationLanguage.Client);
+                        var cfcTerri = DataManager.Excel.GetSheet<ContentFinderCondition>()!
+                            .FirstOrDefault(x => x.TerritoryType.Row == ClientState.TerritoryType);
+
+                        var partyMax = cfcTerri != null && cfcTerri.ContentType.Row == 2 ? 4 : 8;
+
+                        if (cfcTerri != null)
+                        {
+                            richPresence.State = LocalizationManager.Localize("DalamudRichPresenceInADuty", LocalizationLanguage.Client);
+                        }
+
+                        var party = new Party
+                        {
+                            Size = PartyList.Length,
+                            Max = partyMax, // Check dungeon terris, change to 4
+                            ID = GetStringSha256Hash(PartyList.PartyId.ToString()),
+                        };
+
+                        richPresence.Party = party;
                     }
-
-                    var party = new Party
+                    else
                     {
-                        Size = PartyList.Length,
-                        Max = partyMax, // Check dungeon terris, change to 4
-                        ID = GetStringSha256Hash(PartyList.PartyId.ToString()),
-                    };
+                        var ipCrossRealm = InfoProxyCrossRealm.Instance();
 
-                    richPresence.Party = party;
+                        if (ipCrossRealm->IsInCrossRealmParty == 0x01)
+                        {
+                            var numMembers =
+                                InfoProxyCrossRealm.GetGroupMemberCount(ipCrossRealm->LocalPlayerGroupIndex);
+
+                            if (numMembers > 0)
+                            {
+                                var memberAry = new CrossRealmMember[numMembers];
+                                for (var i = 0u; i < numMembers; i++)
+                                {
+                                    memberAry[i] = *InfoProxyCrossRealm.GetGroupMember(i, ipCrossRealm->LocalPlayerGroupIndex);
+                                }
+
+                                var lowestCid = memberAry.OrderBy(x => x.ContentId).Select(x => x.ContentId).First();
+
+                                richPresence.Party = new Party
+                                {
+                                    Size = numMembers,
+                                    Max = 8,
+                                    ID = GetStringSha256Hash(lowestCid.ToString()),
+                                };
+                            }
+                        }
+                    }
                 }
 
                 var onlineStatusEn = localPlayer.OnlineStatus.GetWithLanguage(ClientLanguage.English);
