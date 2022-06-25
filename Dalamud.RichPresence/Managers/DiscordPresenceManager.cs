@@ -39,12 +39,6 @@ namespace Dalamud.RichPresence.Managers
             }
         }
 
-        public void Update()
-        {
-            // Invoke all the events, such as OnPresenceUpdate
-            RpcClient?.Invoke();
-        }
-
         public void SetPresence(DiscordRPC.RichPresence newPresence)
         {
             this.CreateClient();

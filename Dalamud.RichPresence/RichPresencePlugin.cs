@@ -175,8 +175,6 @@ namespace Dalamud.RichPresence
         {
             try
             {
-                DiscordPresenceManager.Update();
-
                 var localPlayer = ClientState.LocalPlayer;
 
                 // Show start timestamp if configured
