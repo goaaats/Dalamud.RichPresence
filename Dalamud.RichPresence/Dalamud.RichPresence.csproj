@@ -12,68 +12,76 @@
         <AssemblyVersion>2.0.0.5</AssemblyVersion>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
-
     <PropertyGroup Label="Documentation">
-        <DocumentationFile></DocumentationFile>
+        <DocumentationFile/>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-
     <PropertyGroup Label="Build">
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Label="Build">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Label="Build">
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
     </PropertyGroup>
-
+    
     <ItemGroup>
-        <PackageReference Include="DalamudPackager" Version="2.1.7" />
-        <PackageReference Include="DiscordRichPresence" Version="1.0.175" GeneratePathProperty="true" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="DalamudPackager" Version="2.1.7"/>
+        <PackageReference GeneratePathProperty="true" Include="DiscordRichPresence" Version="1.0.175"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
+    <PropertyGroup>
+        <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
+    </PropertyGroup>
+
     <ItemGroup>
-        <Reference Include="Dalamud">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Dalamud.dll</HintPath>
-            <Private>False</Private>
+        <PackageReference Include="DalamudPackager" Version="2.1.7"/>
+        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0"/>
+        <PackageReference Include="NCalcSync" Version="2.0.0"/>
+        <PackageReference Include="XivCommon" Version="4.0.0-alpha.2"/>
+        <Reference Include="FFXIVClientStructs">
+            <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="Dalamud">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="ImGui.NET">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGui.NET.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="ImGuiScene">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\ImGuiScene.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(DalamudLibPath)ImGuiScene.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="Lumina">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
+            <Private>false</Private>
         </Reference>
         <Reference Include="Lumina.Excel">
-            <HintPath>$(AppData)\XIVLauncher\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(DalamudLibPath)Lumina.Excel.dll</HintPath>
+            <Private>false</Private>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
-        <Content Remove="Resources/loc/*.json" />
+        <Content Remove="Resources/loc/*.json"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -83,7 +91,7 @@
         <None Include="$(PkgDiscordRichPresence)\lib\net35\DiscordRPC.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="icon.png" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <None Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Include="icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="Resources/loc/*.json">
