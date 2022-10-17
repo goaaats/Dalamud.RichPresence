@@ -9,7 +9,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <NoWarn>IDE0003</NoWarn>
-        <AssemblyVersion>2.0.0.6</AssemblyVersion>
+        <AssemblyVersion>2.0.0.7</AssemblyVersion>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
     <PropertyGroup Label="Documentation">
@@ -36,8 +36,8 @@
         <PackageReference GeneratePathProperty="true" Include="DiscordRichPresence" Version="1.0.175"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0"/>
-		<PackageReference Include="NCalcSync" Version="2.0.0"/>
-		<PackageReference Include="XivCommon" Version="4.0.0-alpha.2"/>
+		<PackageReference Include="NCalcSync" Version="3.5.0"/>
+		<PackageReference Include="XivCommon" Version="6.0.2"/>
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -30,9 +30,9 @@
       },
       "NCalcSync": {
         "type": "Direct",
-        "requested": "[2.0.0, )",
-        "resolved": "2.0.0",
-        "contentHash": "kTGfqfxTGFtu5PYJpYQFPA/+uWeSFdsfBRt5FHBObWF0jNcPhQgfGT53nyXyrl+o4A492HDyBN62tGkE4pC+cQ==",
+        "requested": "[3.5.0, )",
+        "resolved": "3.5.0",
+        "contentHash": "IdBB+LeWaL9h+rZ+TW4V/WUy4a19CUtelYTLLKtPIIxbmeLc9xPPcGul9CPs2Gl6glGX9lvB3iXhNA+9EUucGA==",
         "dependencies": {
           "Antlr3.Runtime": "3.5.1"
         }
@@ -54,9 +54,9 @@
       },
       "XivCommon": {
         "type": "Direct",
-        "requested": "[4.0.0-alpha.2, )",
-        "resolved": "4.0.0-alpha.2",
-        "contentHash": "ugdPMg3LKEWDY3DvdcfctjDW8QTaRnXfKJ9gFlY8036LVQ6guOG3grG65EIkIKIhbyg3b2E2ZWOhgeLYEcS00w=="
+        "requested": "[6.0.2, )",
+        "resolved": "6.0.2",
+        "contentHash": "C/GnQ61iO0yEpf8LPixU3tCThar1MWUiBkO8gdZHNtVskg8AvFeuIxk7Zmkf2yeAJ0drR/KOTdSS7GpbsgmoaQ=="
       },
       "Antlr3.Runtime": {
         "type": "Transitive",
