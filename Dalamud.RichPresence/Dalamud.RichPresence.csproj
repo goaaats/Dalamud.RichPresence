@@ -10,6 +10,7 @@
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <NoWarn>IDE0003</NoWarn>
         <AssemblyVersion>2.0.1.0</AssemblyVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
     <PropertyGroup Label="Documentation">
@@ -34,10 +35,8 @@
     <ItemGroup>
         <PackageReference Include="DalamudPackager" Version="2.1.8" />
         <PackageReference GeneratePathProperty="true" Include="DiscordRichPresence" Version="1.1.1.14" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 		<PackageReference Include="NCalcSync" Version="3.5.0" />
-		<PackageReference Include="XivCommon" Version="6.0.2" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -84,12 +83,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Dalamud.RichPresence.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="$(PkgDiscordRichPresence)\lib\net35\DiscordRPC.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
         <None Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Include="icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
