@@ -30,5 +30,9 @@ namespace Dalamud.RichPresence.Configuration
         public bool ShowParty = true;
 
         public bool ShowAfk = true;
+
+        // RPC Bridge for Wine.
+        public bool RPCBridgeEnabled = true;
+        public string RPCBridgePath = $@"{RichPresencePlugin.DalamudPluginInterface.AssemblyLocation.Directory}\binaries\WineLinuxRPCBridge.exe";
     }
 }

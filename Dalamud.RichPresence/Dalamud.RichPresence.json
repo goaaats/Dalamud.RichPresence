@@ -5,6 +5,7 @@
   "Punchline": "Show your zone, job, level, name, and world in your Discord status",
   "InternalName": "Dalamud.RichPresence",
   "ApplicableVersion": "any",
-  "Changelog": "* Added party grouping support, will show people you group with on Discord if they also use the plugin\n* Now shows AFK status by default, can be disabled\n* Now shows queue position if Waitingway is installed",
-  "Tags": [ "Discord" ]
+  "RepoUrl": "https://github.com/goaaats/Dalamud.RichPresence",
+  "Changelog": "Wine bridge support on Linux and Mac (@Blooym)",
+  "Tags": ["Discord"]
 }

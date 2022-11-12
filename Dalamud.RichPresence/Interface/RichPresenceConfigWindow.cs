@@ -1,11 +1,10 @@
 using System.Numerics;
 using Dalamud.Interface.Colors;
 using ImGuiNET;
-
 using Dalamud.Logging;
-
 using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Models;
+using RichPresencePlugin.Utils;
 
 namespace Dalamud.RichPresence.Interface
 {
@@ -26,7 +25,7 @@ namespace Dalamud.RichPresence.Interface
                 return;
             }
 
-            ImGui.SetNextWindowSize(new Vector2(750, 520));
+            ImGui.SetNextWindowSize(new Vector2(750, 570));
             var imGuiReady = ImGui.Begin(
                 RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceConfiguration", LocalizationLanguage.Plugin),
                 ref IsOpen,
@@ -39,7 +38,7 @@ namespace Dalamud.RichPresence.Interface
                 ImGui.Text(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresencePreface2", LocalizationLanguage.Plugin));
                 ImGui.Separator();
 
-                ImGui.BeginChild("scrolling", new Vector2(0, 400), true, ImGuiWindowFlags.HorizontalScrollbar);
+                ImGui.BeginChild("scrolling", new Vector2(0, 440), true, ImGuiWindowFlags.HorizontalScrollbar);
 
                 ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(1, 3));
 
@@ -59,6 +58,14 @@ namespace Dalamud.RichPresence.Interface
                 ImGui.Separator();
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowParty", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowParty);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowAFK", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowAfk);
+                ImGui.Separator();
+                if (CommonUtil.IsOnLinuxOrWine())
+                {
+                    ImGui.TextWrapped(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgeDesc", LocalizationLanguage.Plugin));
+                    ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgeEnabled", LocalizationLanguage.Plugin), ref RichPresenceConfig.RPCBridgeEnabled);
+                    ImGui.InputTextWithHint(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgePath", LocalizationLanguage.Plugin), RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgePathHint", LocalizationLanguage.Plugin), ref RichPresenceConfig.RPCBridgePath, 1024);
+                }
+
 
                 ImGui.PopStyleVar();
 

@@ -103,20 +103,20 @@
     "message": "Show away from keyboard status",
     "description": "Dalamud.RichPresence.Configuration.ShowAFK"
   },
-  "DalamudRichPresenceInLoginQueue": {
-    "message": "In Login Queue (#{0})",
-    "description": "Dalamud.RichPresence.Details.InLoginQueue"
+  "DalamudRichPresenceRPCBridgeEnabled": {
+    "message": "Enable RPC Bridge",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgeEnabled"
   },
-  "DalamudRichPresenceQueueEstimate": {
-    "message": "ETA: {0:h':'mm':'ss}",
-    "description": "Dalamud.RichPresence.Details.QueueEstimate"
+  "DalamudRichPresenceRPCBridgePath": {
+    "message": "RPC Bridge Path",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgePath"
   },
-  "DalamudRichPresenceShowLoginQueuePosition": {
-    "message": "Show login queue position",
-    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePosition"
+  "DalamudRichPresenceRPCBridgePathHint": {
+    "message": "Path to the RPC Bridge executable",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgePathHint"
   },
-  "DalamudRichPresenceShowLoginQueuePositionDetail": {
-    "message": "This integration requires the Waitingway plugin to be installed.",
-    "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePositionDetail"
+  "DalamudRichPresenceRPCBridgeDesc": {
+    "message": "The wine bridge executable to use to forward the RPC data to Discord. Settings apply on next plugin load.",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgeDesc"
   }
 }
