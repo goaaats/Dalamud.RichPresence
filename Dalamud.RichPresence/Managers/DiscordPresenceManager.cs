@@ -1,12 +1,11 @@
 ﻿using System;
-
-using RichPresencePlugin.Utils;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
+using Dalamud.Logging;
 using DiscordRPC;
 using DiscordRPC.Logging;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.IO;
-using Dalamud.Logging;
+using RichPresencePlugin.Utils;
 
 namespace Dalamud.RichPresence.Managers
 {
@@ -90,26 +89,14 @@ namespace Dalamud.RichPresence.Managers
                     return;
                 }
 
-                // Start a new bridge process.
-                ProcessStartInfo startInfo = new ProcessStartInfo()
+                PluginLog.LogInformation($"Starting Wine bridge process: {bridgeExecutablePath}");
+                this.bridgeProcess = Process.Start(new ProcessStartInfo
                 {
                     FileName = bridgeExecutablePath,
                     UseShellExecute = false,
                     CreateNoWindow = true,
-                };
-                Process.Start(startInfo);
-                PluginLog.LogInformation($"Starting Wine bridge process: {bridgeExecutablePath} {startInfo.Arguments}");
-
-                // Setup a task that waits for the bridge to be active, and bind it to bridgeProcess.
-                new Task(() =>
-                {
-                    var bridge = Process.GetProcessesByName(bridgeExecutableName);
-                    while (bridge.Length == 0)
-                    {
-                        bridge = Process.GetProcessesByName(bridgeExecutableName);
-                    }
-                    bridgeProcess = bridge[0];
-                }).Start();
+                });
+                PluginLog.LogInformation($"Started Wine bridge process, PID: {bridgeProcess.Id}");
             }
             catch (Exception e)
             {
