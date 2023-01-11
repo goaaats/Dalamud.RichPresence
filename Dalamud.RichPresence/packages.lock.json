@@ -1,21 +1,21 @@
 {
   "version": 1,
   "dependencies": {
-    "net6.0-windows7.0": {
+    "net7.0-windows7.0": {
       "DalamudPackager": {
         "type": "Direct",
-        "requested": "[2.1.8, )",
-        "resolved": "2.1.8",
-        "contentHash": "YqagNXs9InxmqkXzq7kLveImxnodkBEicAhydMXVp7dFjC7xb76U6zGgAax4/BWIWfZeWzr5DJyQSev31kj81A=="
+        "requested": "[2.1.10, )",
+        "resolved": "2.1.10",
+        "contentHash": "S6NrvvOnLgT4GDdgwuKVJjbFo+8ZEj+JsEYk9ojjOR/MMfv1dIFpT8aRJQfI24rtDcw1uF+GnSSMN4WW1yt7fw=="
       },
       "DiscordRichPresence": {
         "type": "Direct",
-        "requested": "[1.1.1.14, )",
-        "resolved": "1.1.1.14",
-        "contentHash": "9DAETjebo1EK4eD0t3NUlg7jltXszIyVKBzY3xBw5bgRkxoexbX1ZcJGK8Pfzq+LV7Ybc/GUGNGmH6LU75mkNw==",
+        "requested": "[1.1.3.18, )",
+        "resolved": "1.1.3.18",
+        "contentHash": "cu8ilTx4DPuU3YJO1bNF+UtTlVvQIihvJ7AwoRKkcy9+cZ+fUxKfQsMpEcfm3PndT3zExpljPbS9wMdbLeYdAg==",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.5.0",
-          "Newtonsoft.Json": "12.0.2"
+          "Newtonsoft.Json": "13.0.1"
         }
       },
       "Microsoft.Win32.Registry": {
@@ -30,9 +30,9 @@
       },
       "NCalcSync": {
         "type": "Direct",
-        "requested": "[3.5.0, )",
-        "resolved": "3.5.0",
-        "contentHash": "IdBB+LeWaL9h+rZ+TW4V/WUy4a19CUtelYTLLKtPIIxbmeLc9xPPcGul9CPs2Gl6glGX9lvB3iXhNA+9EUucGA==",
+        "requested": "[3.6.0, )",
+        "resolved": "3.6.0",
+        "contentHash": "r1u1/agxnOKc6vve/yqL+8GYmCtBc4nwRgqR4Kq6SoXPAAcloCw2Uap7CXdVOg+uHqNO3tJUqzhcsOFLnnMMxw==",
         "dependencies": {
           "Antlr3.Runtime": "3.5.1"
         }
@@ -127,8 +127,8 @@
       },
       "Newtonsoft.Json": {
         "type": "Transitive",
-        "resolved": "12.0.2",
-        "contentHash": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA=="
+        "resolved": "13.0.1",
+        "contentHash": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A=="
       },
       "runtime.native.System": {
         "type": "Transitive",
