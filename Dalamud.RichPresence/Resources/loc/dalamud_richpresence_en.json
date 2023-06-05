@@ -103,6 +103,10 @@
     "message": "Show away from keyboard status",
     "description": "Dalamud.RichPresence.Configuration.ShowAFK"
   },
+  "DalamudRichPresenceHideAFKEntirely": {
+    "message": "Hide rich presence status entirely when AFK",
+    "description": "Dalamud.RichPresence.Configuration.HideEntirelyWhenAfk"
+  },
   "DalamudRichPresenceInLoginQueue": {
     "message": "In Login Queue (#{0})",
     "description": "Dalamud.RichPresence.Details.InLoginQueue"
