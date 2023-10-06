@@ -1,25 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
-using DiscordRPC;
-using Lumina.Excel.GeneratedSheets;
-
-using Dalamud.Data;
-using Dalamud.Game;
-using Dalamud.Game.ClientState;
-using Dalamud.Game.ClientState.Party;
 using Dalamud.Game.Command;
 using Dalamud.IoC;
-using Dalamud.Logging;
 using Dalamud.Plugin;
-using Dalamud.Utility;
+using Dalamud.Plugin.Services;
+using FFXIVClientStructs.FFXIV.Client.UI.Info;
+using Lumina.Excel.GeneratedSheets;
+
+using DiscordRPC;
 
 using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Interface;
 using Dalamud.RichPresence.Managers;
 using Dalamud.RichPresence.Models;
-using FFXIVClientStructs.FFXIV.Client.UI.Info;
 
 namespace Dalamud.RichPresence
 {
@@ -29,19 +25,22 @@ namespace Dalamud.RichPresence
         internal static DalamudPluginInterface DalamudPluginInterface { get; private set; }
 
         [PluginService]
-        internal static ClientState ClientState { get; private set; }
+        internal static IClientState ClientState { get; private set; }
 
         [PluginService]
-        internal static CommandManager CommandManager { get; private set; }
+        internal static ICommandManager CommandManager { get; private set; }
 
         [PluginService]
-        internal static DataManager DataManager { get; private set; }
+        internal static IDataManager DataManager { get; private set; }
 
         [PluginService]
-        internal static Framework Framework { get; private set; }
+        internal static IFramework Framework { get; private set; }
 
         [PluginService]
-        internal static PartyList PartyList { get; private set; }
+        internal static IPartyList PartyList { get; private set; }
+
+        [PluginService]
+        internal static IPluginLog PluginLog { get; private set; }
 
         internal static LocalizationManager LocalizationManager { get; private set; }
         internal static DiscordPresenceManager DiscordPresenceManager { get; private set; }
@@ -56,7 +55,7 @@ namespace Dalamud.RichPresence
 
         private const string DEFAULT_LARGE_IMAGE_KEY = "li_1";
         private const string DEFAULT_SMALL_IMAGE_KEY = "class_0";
-        private static readonly DiscordRPC.RichPresence DEFAULT_PRESENCE = new DiscordRPC.RichPresence
+        private static readonly DiscordRPC.RichPresence DEFAULT_PRESENCE = new()
         {
             Assets = new Assets
             {
@@ -134,17 +133,17 @@ namespace Dalamud.RichPresence
             }
         }
 
-        private void State_Login(object sender, System.EventArgs e)
+        private void State_Login()
         {
             UpdateStartTime();
         }
 
-        private void State_TerritoryChanged(object sender, ushort e)
+        private void State_TerritoryChanged(ushort territoryId)
         {
             UpdateStartTime();
         }
 
-        private void State_Logout(object sender, System.EventArgs e)
+        private void State_Logout()
         {
             SetDefaultPresence();
             UpdateStartTime();
@@ -171,7 +170,7 @@ namespace Dalamud.RichPresence
             );
         }
 
-        private unsafe void UpdateRichPresence(Framework framework)
+        private unsafe void UpdateRichPresence(IFramework framework)
         {
             try
             {
@@ -208,15 +207,15 @@ namespace Dalamud.RichPresence
 
                     var queueEstimate = IpcManager.GetQueueEstimate();
                     var queueEstimateFormatted = queueEstimate?.TotalSeconds >= 1d
-                        ? String.Format(
+                        ? string.Format(
                             LocalizationManager.Localize("DalamudRichPresenceQueueEstimate",
                                 LocalizationLanguage.Client), queueEstimate)
-                        : String.Empty;
+                        : string.Empty;
 
                     // Create rich presence object
                     richPresence = new DiscordRPC.RichPresence
                     {
-                        Details = String.Format(
+                        Details = string.Format(
                             LocalizationManager.Localize("DalamudRichPresenceInLoginQueue",
                                 LocalizationLanguage.Client), queuePosition),
                         State = queueEstimateFormatted,
@@ -275,7 +274,7 @@ namespace Dalamud.RichPresence
                         var fcTag = localPlayer.CompanyTag.ToString();
 
                         // Append free company tag to player name if it exists
-                        richPresenceDetails = fcTag.IsNullOrEmpty() ? richPresenceDetails : $"{richPresenceDetails} «{fcTag}»";
+                        richPresenceDetails = string.IsNullOrEmpty(fcTag) ? richPresenceDetails : $"{richPresenceDetails} «{fcTag}»";
                     }
                     else if (RichPresenceConfig.ShowWorld && localPlayer.CurrentWorld.Id != localPlayer.HomeWorld.Id)
                     {
@@ -296,14 +295,14 @@ namespace Dalamud.RichPresence
                     richPresenceSmallImageKey = $"class_{localPlayer.ClassJob.Id}";
 
                     // Abbreviate job name if configured
-                    richPresenceSmallImageText = (RichPresenceConfig.AbbreviateJob)
+                    richPresenceSmallImageText = RichPresenceConfig.AbbreviateJob
                         ? localPlayer.ClassJob.GameData.Abbreviation
                         : LocalizationManager.TitleCase(localPlayer.ClassJob.GameData.Name.ToString());
 
                     // Show current job level if configured
                     if (RichPresenceConfig.ShowLevel)
                     {
-                        var levelText = String.Format(LocalizationManager.Localize("DalamudRichPresenceLevel", LocalizationLanguage.Client), localPlayer.Level);
+                        var levelText = string.Format(LocalizationManager.Localize("DalamudRichPresenceLevel", LocalizationLanguage.Client), localPlayer.Level);
                         richPresenceSmallImageText = $"{richPresenceSmallImageText} {levelText}";
                     }
                 }
@@ -312,7 +311,7 @@ namespace Dalamud.RichPresence
                 if (!RichPresenceConfig.ShowWorld)
                 {
                     // Replace world name with territory name or territory region
-                    richPresenceState = (RichPresenceConfig.ShowName) ? territoryName : territoryRegion;
+                    richPresenceState = RichPresenceConfig.ShowName ? territoryName : territoryRegion;
                 }
 
                 // Create rich presence object
@@ -389,19 +388,27 @@ namespace Dalamud.RichPresence
                 }
 
                 var onlineStatusEn = localPlayer.OnlineStatus.GetWithLanguage(ClientLanguage.English);
-                if (RichPresenceConfig.ShowAfk && onlineStatusEn != null && onlineStatusEn.Name.RawString.Contains("Away from Keyboard"))
+                var isAfk = onlineStatusEn != null && onlineStatusEn.Name.RawString.Contains("Away from Keyboard");
+                if (RichPresenceConfig.ShowAfk && isAfk)
                 {
                     var text = localPlayer.OnlineStatus.GameData!.Name.RawString;
                     richPresence.State = text;
                     richPresence.Assets.SmallImageKey = "away";
                 }
 
-                // Request new presence to be set
-                DiscordPresenceManager.SetPresence(richPresence);
+                if (RichPresenceConfig.HideEntirelyWhenAfk && isAfk)
+                {
+                    DiscordPresenceManager.ClearPresence();
+                }
+                else
+                {
+                    // Request new presence to be set
+                    DiscordPresenceManager.SetPresence(richPresence);
+                }
             }
             catch (Exception ex)
             {
-                PluginLog.LogError(ex, "Could not run OnUpdate.");
+                PluginLog.Error(ex, "Could not run OnUpdate.");
             }
         }
 
@@ -412,7 +419,7 @@ namespace Dalamud.RichPresence
                 return string.Empty;
             }
 
-            using var sha = new System.Security.Cryptography.SHA256Managed();
+            using var sha = SHA256.Create();
             var textData = System.Text.Encoding.UTF8.GetBytes(text);
             var hash = sha.ComputeHash(textData);
             return BitConverter.ToString(hash).Replace("-", string.Empty);

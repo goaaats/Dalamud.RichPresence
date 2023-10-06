@@ -2,8 +2,6 @@ using System.Numerics;
 using Dalamud.Interface.Colors;
 using ImGuiNET;
 
-using Dalamud.Logging;
-
 using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Models;
 
@@ -59,6 +57,7 @@ namespace Dalamud.RichPresence.Interface
                 ImGui.Separator();
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowParty", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowParty);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowAFK", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowAfk);
+                ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceHideAFKEntirely", LocalizationLanguage.Plugin), ref RichPresenceConfig.HideEntirelyWhenAfk);
 
                 ImGui.PopStyleVar();
 
@@ -71,7 +70,7 @@ namespace Dalamud.RichPresence.Interface
                     this.Close();
                     RichPresencePlugin.DalamudPluginInterface.SavePluginConfig(RichPresenceConfig);
                     RichPresencePlugin.RichPresenceConfig = this.RichPresenceConfig;
-                    PluginLog.Log("Settings saved.");
+                    RichPresencePlugin.PluginLog.Information("Settings saved.");
                 }
 
                 ImGui.End();

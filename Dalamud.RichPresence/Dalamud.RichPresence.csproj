@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <AssemblyName>Dalamud.RichPresence</AssemblyName>
-        <TargetFramework>net5.0-windows</TargetFramework>
+        <TargetFramework>net7.0-windows</TargetFramework>
         <PlatformTarget>x64</PlatformTarget>
-        <Platforms>x64;AnyCPU</Platforms>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>11</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
         <NoWarn>IDE0003</NoWarn>
-        <AssemblyVersion>2.0.0.5</AssemblyVersion>
+        <AssemblyVersion>2.0.3.0</AssemblyVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     </PropertyGroup>
     <PropertyGroup Label="Documentation">
-        <DocumentationFile/>
+        <DocumentationFile />
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
     <PropertyGroup Label="Build">
@@ -21,24 +21,19 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Label="Build">
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' " Label="Build">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " Label="Build">
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' " Label="Build">
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="DalamudPackager" Version="2.1.7"/>
-        <PackageReference GeneratePathProperty="true" Include="DiscordRichPresence" Version="1.0.175"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="DalamudPackager" Version="2.1.12" />
+        <PackageReference GeneratePathProperty="true" Include="DiscordRichPresence" Version="1.2.1.24" />
     </ItemGroup>
 
     <PropertyGroup>
@@ -46,10 +41,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DalamudPackager" Version="2.1.7"/>
-        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0"/>
-        <PackageReference Include="NCalcSync" Version="2.0.0"/>
-        <PackageReference Include="XivCommon" Version="4.0.0-alpha.2"/>
         <Reference Include="FFXIVClientStructs">
             <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
             <Private>false</Private>
@@ -81,17 +72,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Remove="Resources/loc/*.json"/>
+        <Content Remove="Resources/loc/*.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Dalamud.RichPresence.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="$(PkgDiscordRichPresence)\lib\net35\DiscordRPC.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " Include="icon.png">
+        <None Condition=" '$(Configuration)' == 'Debug' " Include="icon.png">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="Resources/loc/*.json">
