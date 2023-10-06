@@ -388,15 +388,23 @@ namespace Dalamud.RichPresence
                 }
 
                 var onlineStatusEn = localPlayer.OnlineStatus.GetWithLanguage(ClientLanguage.English);
-                if (RichPresenceConfig.ShowAfk && onlineStatusEn != null && onlineStatusEn.Name.RawString.Contains("Away from Keyboard"))
+                var isAfk = onlineStatusEn != null && onlineStatusEn.Name.RawString.Contains("Away from Keyboard");
+                if (RichPresenceConfig.ShowAfk && isAfk)
                 {
                     var text = localPlayer.OnlineStatus.GameData!.Name.RawString;
                     richPresence.State = text;
                     richPresence.Assets.SmallImageKey = "away";
                 }
 
-                // Request new presence to be set
-                DiscordPresenceManager.SetPresence(richPresence);
+                if (RichPresenceConfig.HideEntirelyWhenAfk && isAfk)
+                {
+                    DiscordPresenceManager.ClearPresence();
+                }
+                else
+                {
+                    // Request new presence to be set
+                    DiscordPresenceManager.SetPresence(richPresence);
+                }
             }
             catch (Exception ex)
             {
