@@ -2,8 +2,6 @@ using System.Numerics;
 using Dalamud.Interface.Colors;
 using ImGuiNET;
 
-using Dalamud.Logging;
-
 using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Models;
 
@@ -71,7 +69,7 @@ namespace Dalamud.RichPresence.Interface
                     this.Close();
                     RichPresencePlugin.DalamudPluginInterface.SavePluginConfig(RichPresenceConfig);
                     RichPresencePlugin.RichPresenceConfig = this.RichPresenceConfig;
-                    PluginLog.Log("Settings saved.");
+                    RichPresencePlugin.PluginLog.Information("Settings saved.");
                 }
 
                 ImGui.End();
