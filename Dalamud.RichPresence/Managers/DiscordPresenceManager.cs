@@ -29,7 +29,7 @@ namespace Dalamud.RichPresence.Managers
                 RpcClient.Logger = new ConsoleLogger { Level = LogLevel.Warning };
 
                 // Subscribe to events
-                RpcClient.OnPresenceUpdate += (sender, e) => { Console.WriteLine("Received Update! {0}", e.Presence); };
+                RpcClient.OnPresenceUpdate += (sender, e) => { System.Console.WriteLine("Received Update! {0}", e.Presence); };
             }
 
             if (!RpcClient.IsInitialized)

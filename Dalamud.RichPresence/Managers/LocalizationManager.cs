@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Dalamud.Logging;
 
 using Dalamud.RichPresence.Models;
+using Dalamud.Game;
+using Dalamud.Plugin.Services;
 
 namespace Dalamud.RichPresence.Managers
 {
@@ -17,6 +19,7 @@ namespace Dalamud.RichPresence.Managers
         private Dictionary<string, LocalizationEntry> clientLocalizationDictonary;
         private Dictionary<string, LocalizationEntry> pluginLocalizationDictionary;
         private Dictionary<string, LocalizationEntry> defaultLocalizationDictionary;
+
 
         private const string PREFIX = "dalamud_richpresence_";
         private const string DEFAULT_DICT_LANGCODE = "en";
@@ -63,24 +66,24 @@ namespace Dalamud.RichPresence.Managers
 
         private void ReadClientLanguageLocFile(string langCode)
         {
-            PluginLog.LogDebug("Loading client localization file...");
+            RichPresencePlugin.PluginLog.Debug("Loading client localization file...");
             clientLocalizationDictonary = this.ReadFileWithLangCode(langCode);
             clientCultureInfo = new CultureInfo(langCode);
-            PluginLog.LogDebug("Client localization file loaded.");
+            RichPresencePlugin.PluginLog.Debug("Client localization file loaded.");
         }
 
         private void ReadPluginLanguageLocFile(string langCode)
         {
-            PluginLog.LogDebug("Loading plugin localization file...");
+            RichPresencePlugin.PluginLog.Debug("Loading plugin localization file...");
             pluginLocalizationDictionary = ReadFileWithLangCode(langCode);
-            PluginLog.LogDebug("Plugin localization file loaded.");
+            RichPresencePlugin.PluginLog.Debug("Plugin localization file loaded.");
         }
 
         private Dictionary<string, LocalizationEntry> ReadFileWithLangCode(string langCode)
         {
             try
             {
-                PluginLog.LogDebug($"Reading localization file with language code {langCode}...");
+                RichPresencePlugin.PluginLog.Debug($"Reading localization file with language code {langCode}...");
                 return JsonConvert.DeserializeObject<Dictionary<string, LocalizationEntry>>(
                     File.ReadAllText(Path.Combine(
                         RichPresencePlugin.DalamudPluginInterface.AssemblyLocation.DirectoryName,
@@ -92,7 +95,7 @@ namespace Dalamud.RichPresence.Managers
             }
             catch (Exception ex)
             {
-                PluginLog.LogError(ex, $"File with language code {langCode} not loaded, using fallbacks...");
+                RichPresencePlugin.PluginLog.Debug(ex, $"File with language code {langCode} not loaded, using fallbacks...");
                 return JsonConvert.DeserializeObject<Dictionary<string, LocalizationEntry>>(
                     File.ReadAllText(Path.Combine(
                         RichPresencePlugin.DalamudPluginInterface.AssemblyLocation.DirectoryName,

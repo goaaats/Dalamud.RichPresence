@@ -20,28 +20,33 @@ using Dalamud.RichPresence.Interface;
 using Dalamud.RichPresence.Managers;
 using Dalamud.RichPresence.Models;
 using FFXIVClientStructs.FFXIV.Client.UI.Info;
+using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 
 namespace Dalamud.RichPresence
 {
     internal class RichPresencePlugin : IDalamudPlugin, IDisposable
     {
         [PluginService]
-        internal static DalamudPluginInterface DalamudPluginInterface { get; private set; }
+        internal static IDalamudPluginInterface DalamudPluginInterface { get; private set; }
 
         [PluginService]
-        internal static ClientState ClientState { get; private set; }
+        internal static IClientState ClientState { get; private set; }
 
         [PluginService]
-        internal static CommandManager CommandManager { get; private set; }
+        internal static ICommandManager CommandManager { get; private set; }
 
         [PluginService]
-        internal static DataManager DataManager { get; private set; }
+        internal static IDataManager DataManager { get; private set; }
 
         [PluginService]
-        internal static Framework Framework { get; private set; }
+        internal static IFramework Framework { get; private set; }
 
         [PluginService]
-        internal static PartyList PartyList { get; private set; }
+        internal static IPartyList PartyList { get; private set; }
+
+        [PluginService]
+        internal static IPluginLog PluginLog { get; private set; }
 
         internal static LocalizationManager LocalizationManager { get; private set; }
         internal static DiscordPresenceManager DiscordPresenceManager { get; private set; }
@@ -78,6 +83,7 @@ namespace Dalamud.RichPresence
             DalamudPluginInterface.UiBuilder.Draw += RichPresenceConfigWindow.DrawRichPresenceConfigWindow;
             DalamudPluginInterface.UiBuilder.OpenConfigUi += RichPresenceConfigWindow.Open;
 
+
             Framework.Update += UpdateRichPresence;
 
             ClientState.Login += State_Login;
@@ -88,6 +94,11 @@ namespace Dalamud.RichPresence
             DalamudPluginInterface.LanguageChanged += ReregisterCommand;
 
             Territories = DataManager.GetExcelSheet<TerritoryType>().ToList();
+        }
+
+        private void State_Login()
+        {
+            UpdateStartTime();
         }
 
         public string Name => "Discord Rich Presence";
@@ -134,17 +145,14 @@ namespace Dalamud.RichPresence
             }
         }
 
-        private void State_Login(object sender, System.EventArgs e)
+        
+
+        private void State_TerritoryChanged(ushort arg)
         {
             UpdateStartTime();
         }
 
-        private void State_TerritoryChanged(object sender, ushort e)
-        {
-            UpdateStartTime();
-        }
-
-        private void State_Logout(object sender, System.EventArgs e)
+        private void State_Logout()
         {
             SetDefaultPresence();
             UpdateStartTime();
@@ -171,7 +179,7 @@ namespace Dalamud.RichPresence
             );
         }
 
-        private unsafe void UpdateRichPresence(Framework framework)
+        private unsafe void UpdateRichPresence(IFramework framework)
         {
             try
             {
@@ -401,7 +409,7 @@ namespace Dalamud.RichPresence
             }
             catch (Exception ex)
             {
-                PluginLog.LogError(ex, "Could not run OnUpdate.");
+                PluginLog.Error(ex, "Could not run OnUpdate.");
             }
         }
 

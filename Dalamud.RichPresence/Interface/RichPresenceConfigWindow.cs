@@ -71,7 +71,7 @@ namespace Dalamud.RichPresence.Interface
                     this.Close();
                     RichPresencePlugin.DalamudPluginInterface.SavePluginConfig(RichPresenceConfig);
                     RichPresencePlugin.RichPresenceConfig = this.RichPresenceConfig;
-                    PluginLog.Log("Settings saved.");
+                    RichPresencePlugin.PluginLog.Info("Settings saved.");
                 }
 
                 ImGui.End();
