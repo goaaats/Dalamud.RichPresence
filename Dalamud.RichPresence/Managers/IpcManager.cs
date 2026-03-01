@@ -7,19 +7,19 @@ namespace Dalamud.RichPresence.Managers
     internal class IpcManager : IDisposable
     {
         // Waitingway IPCs
-        private readonly ICallGateSubscriber<bool> wwIsInQueue;
-        private readonly ICallGateSubscriber<int> wwGetQueueType;
-        private readonly ICallGateSubscriber<int> wwGetQueuePosition;
-        private readonly ICallGateSubscriber<TimeSpan?> wwGetQueueEstimate;
+        private readonly ICallGateSubscriber<int?> wwQueueType;
+        private readonly ICallGateSubscriber<int?> wwCurrentPosition;
+        // private readonly ICallGateSubscriber<TimeSpan?> wwElapsedTime;
+        private readonly ICallGateSubscriber<TimeSpan?> wwEstimatedTimeRemaining;
 
         public IpcManager()
         {
-            wwIsInQueue = RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<bool>("Waitingway.IsInQueue");
-            wwGetQueueType = RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<int>("Waitingway.GetQueueType");
-            wwGetQueuePosition =
-                RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<int>("Waitingway.GetQueuePosition");
-            wwGetQueueEstimate =
-                RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<TimeSpan?>("Waitingway.GetQueueEstimate");
+            wwQueueType = RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<int?>("Waitingway.QueueType");
+            wwCurrentPosition = RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<int?>("Waitingway.CurrentPosition");
+            //wwElapsedTime =
+            //    RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<TimeSpan?>("Waitingway.ElapsedTime");
+            wwEstimatedTimeRemaining =
+                RichPresencePlugin.DalamudPluginInterface.GetIpcSubscriber<TimeSpan?>("Waitingway.EstimatedTimeRemaining");
         }
 
         public bool IsInLoginQueue()
@@ -27,7 +27,7 @@ namespace Dalamud.RichPresence.Managers
             try
             {
                 // We only care about login queues
-                return wwIsInQueue.InvokeFunc() && wwGetQueueType.InvokeFunc() == 1;
+                return wwQueueType.InvokeFunc() == 1;
             }
             catch (IpcNotReadyError)
             {
@@ -39,7 +39,7 @@ namespace Dalamud.RichPresence.Managers
         {
             try
             {
-                return wwGetQueuePosition.InvokeFunc();
+                return wwCurrentPosition.InvokeFunc() ?? -1;
             }
             catch (IpcNotReadyError)
             {
@@ -51,7 +51,7 @@ namespace Dalamud.RichPresence.Managers
         {
             try
             {
-                return wwGetQueueEstimate.InvokeFunc();
+                return wwEstimatedTimeRemaining.InvokeFunc();
             }
             catch (IpcNotReadyError)
             {

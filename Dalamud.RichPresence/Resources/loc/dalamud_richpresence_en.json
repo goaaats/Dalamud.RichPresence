@@ -67,6 +67,14 @@
     "message": "Show world name",
     "description": "Dalamud.RichPresence.Configuration.ShowWorld"
   },
+  "DalamudRichPresenceAlwaysShowHomeWorld": {
+    "message": "Always show home world",
+    "description": "Dalamud.RichPresence.Configuration.AlwaysShowHomeWorld"
+  },
+  "DalamudRichPresenceShowDataCenter": {
+    "message": "Show data center name",
+    "description": "Dalamud.RichPresence.Configuration.ShowDataCenter"
+  },
   "DalamudRichPresenceShowStartTime": {
     "message": "Show elapsed time in zones",
     "description": "Dalamud.RichPresence.Configuration.ShowStartTime"
@@ -103,6 +111,14 @@
     "message": "Show away from keyboard status",
     "description": "Dalamud.RichPresence.Configuration.ShowAFK"
   },
+  "DalamudRichPresenceHideAFKEntirely": {
+    "message": "Hide rich presence status entirely when AFK",
+    "description": "Dalamud.RichPresence.Configuration.HideEntirelyWhenAfk"
+  },
+  "DalamudRichPresenceHideInCutscene": {
+    "message": "Hide rich presence during cutscenes",
+    "description": "Dalamud.RichPresence.Configuration.HideInCutscene"
+  },
   "DalamudRichPresenceInLoginQueue": {
     "message": "In Login Queue (#{0})",
     "description": "Dalamud.RichPresence.Details.InLoginQueue"
@@ -118,5 +134,13 @@
   "DalamudRichPresenceShowLoginQueuePositionDetail": {
     "message": "This integration requires the Waitingway plugin to be installed.",
     "description": "Dalamud.RichPresence.Configuration.ShowLoginQueuePositionDetail"
+  },
+  "DalamudRichPresenceRPCBridgeEnabled": {
+    "message": "Enable WINE RPC Bridge (Linux)",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgeEnabled"
+  },
+  "DalamudRichPresenceRPCBridgeEnabledDetail": {
+    "message": "Enable support for rich presence when running the game on Linux (Applies on plugin restart). For macOS users, please enable the wine bridge from XIV On Mac's settings instead.",
+    "description": "Dalamud.RichPresence.Configuration.RPCBridgeEnabledDetail"
   }
 }

@@ -1,11 +1,11 @@
 using System.Numerics;
 using Dalamud.Interface.Colors;
-using ImGuiNET;
-
-using Dalamud.Logging;
+using Dalamud.Bindings.ImGui;
 
 using Dalamud.RichPresence.Configuration;
 using Dalamud.RichPresence.Models;
+using Dalamud.Interface.Utility;
+using Dalamud.Utility;
 
 namespace Dalamud.RichPresence.Interface
 {
@@ -26,11 +26,11 @@ namespace Dalamud.RichPresence.Interface
                 return;
             }
 
-            ImGui.SetNextWindowSize(new Vector2(750, 520));
+            ImGui.SetNextWindowSize(ImGuiHelpers.ScaledVector2(750, 520));
             var imGuiReady = ImGui.Begin(
                 RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceConfiguration", LocalizationLanguage.Plugin),
                 ref IsOpen,
-                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar
+                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoScrollbar
             );
 
             if (imGuiReady)
@@ -39,13 +39,15 @@ namespace Dalamud.RichPresence.Interface
                 ImGui.Text(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresencePreface2", LocalizationLanguage.Plugin));
                 ImGui.Separator();
 
-                ImGui.BeginChild("scrolling", new Vector2(0, 400), true, ImGuiWindowFlags.HorizontalScrollbar);
+                ImGui.BeginChild("scrolling", ImGuiHelpers.ScaledVector2(0, 400), true, ImGuiWindowFlags.HorizontalScrollbar);
 
-                ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(1, 3));
+                ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, ImGuiHelpers.ScaledVector2(1, 3));
 
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowName", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowName);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowFreeCompany", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowFreeCompany);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowWorld", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowWorld);
+                ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceAlwaysShowHomeWorld", LocalizationLanguage.Plugin), ref RichPresenceConfig.AlwaysShowHomeWorld);
+                ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowDataCenter", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowDataCenter);
                 ImGui.Separator();
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowStartTime", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowStartTime);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceResetTimeWhenChangingZones", LocalizationLanguage.Plugin), ref RichPresenceConfig.ResetTimeWhenChangingZones);
@@ -59,6 +61,15 @@ namespace Dalamud.RichPresence.Interface
                 ImGui.Separator();
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowParty", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowParty);
                 ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceShowAFK", LocalizationLanguage.Plugin), ref RichPresenceConfig.ShowAfk);
+                ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceHideAFKEntirely", LocalizationLanguage.Plugin), ref RichPresenceConfig.HideEntirelyWhenAfk);
+                ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceHideInCutscene", LocalizationLanguage.Plugin), ref RichPresenceConfig.HideInCutscene);
+
+                if (Util.IsWine())
+                {
+                    ImGui.Separator();
+                    ImGui.Checkbox(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgeEnabled", LocalizationLanguage.Plugin), ref RichPresenceConfig.RPCBridgeEnabled);
+                    ImGui.TextColored(ImGuiColors.DalamudGrey, RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceRPCBridgeEnabledDetail", LocalizationLanguage.Plugin));
+                }
 
                 ImGui.PopStyleVar();
 
@@ -68,10 +79,10 @@ namespace Dalamud.RichPresence.Interface
 
                 if (ImGui.Button(RichPresencePlugin.LocalizationManager.Localize("DalamudRichPresenceSaveAndClose", LocalizationLanguage.Plugin)))
                 {
-                    this.Close();
-                    RichPresencePlugin.DalamudPluginInterface.SavePluginConfig(RichPresenceConfig);
+                    RichPresencePlugin.DalamudPluginInterface.SavePluginConfig(this.RichPresenceConfig);
                     RichPresencePlugin.RichPresenceConfig = this.RichPresenceConfig;
-                    PluginLog.Log("Settings saved.");
+                    RichPresencePlugin.PluginLog.Information("Settings saved.");
+                    this.Close();
                 }
 
                 ImGui.End();
